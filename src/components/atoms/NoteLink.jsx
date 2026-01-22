@@ -10,23 +10,45 @@ import penIcon from '../../icons/Stroked 2px/Pen.png'
  * Can be clicked to enter edit mode and accept user input.
  * 
  * @param {function} onClick - Callback function called when NoteLink is clicked
+ * @param {function} onEnter - Callback function called when Enter is pressed while editing (receives saved value)
+ * @param {string} initialValue - Initial value for the note (optional)
+ * @param {boolean} autoFocus - If true, automatically enter edit mode when component mounts (for empty notes)
  * @param {string} className - Optional additional CSS classes
  * @param {object} rest - Any additional props to pass to the element
  */
 const NoteLink = ({ 
   onClick,
+  onEnter,
+  initialValue = '',
+  autoFocus = false,
   className = '',
   ...rest 
 }) => {
   const [isEditing, setIsEditing] = useState(false)
-  const [value, setValue] = useState('')
+  const [value, setValue] = useState(initialValue)
   const inputRef = useRef(null)
+  const hasLocalChangesRef = useRef(false)
+
+  // Only sync initialValue on mount, or when it changes from parent (but not if we have local changes)
+  useEffect(() => {
+    // Only sync if we don't have local changes (user hasn't typed anything)
+    if (!hasLocalChangesRef.current) {
+      setValue(initialValue)
+    }
+  }, [initialValue])
 
   useEffect(() => {
     if (isEditing && inputRef.current) {
       inputRef.current.focus()
     }
   }, [isEditing])
+
+  // Auto-focus empty notes when autoFocus prop is true
+  useEffect(() => {
+    if (autoFocus && !value && !isEditing) {
+      setIsEditing(true)
+    }
+  }, [autoFocus, value, isEditing])
 
   const handleMouseDown = (e) => {
     if (!isEditing) {
@@ -48,16 +70,13 @@ const NoteLink = ({
   }
 
   const handleChange = (e) => {
+    hasLocalChangesRef.current = true
     setValue(e.target.value)
   }
 
   const handleKeyDown = (e) => {
-    if (isEditing) {
-      if (e.key === 'Escape') {
-        setIsEditing(false)
-        inputRef.current?.blur()
-      }
-    } else {
+    // Only handle keys when not editing (input handles its own keys)
+    if (!isEditing) {
       // Allow keyboard activation when not editing
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault()
@@ -65,6 +84,29 @@ const NoteLink = ({
         setIsEditing(true)
       }
     }
+  }
+
+  const handleInputKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      // Save the note and create a new one
+      e.preventDefault()
+      e.stopPropagation()
+      const savedValue = value.trim()
+      // Update the value state with the trimmed value
+      setValue(savedValue)
+      // Keep hasLocalChangesRef as true so useEffect doesn't reset it
+      setIsEditing(false)
+      inputRef.current?.blur()
+      
+      // Call onEnter callback with the saved value
+      if (onEnter && savedValue) {
+        onEnter(savedValue)
+      }
+    } else if (e.key === 'Escape') {
+      setIsEditing(false)
+      inputRef.current?.blur()
+    }
+    // Allow other key events to propagate
   }
 
   // Extract onClick from rest to avoid conflicts
@@ -103,10 +145,7 @@ const NoteLink = ({
           value={value}
           onChange={handleChange}
           onBlur={handleBlur}
-          onKeyDown={(e) => {
-            handleKeyDown(e)
-            // Allow input to handle its own key events
-          }}
+          onKeyDown={handleInputKeyDown}
           aria-label="Заметка"
         />
       ) : (

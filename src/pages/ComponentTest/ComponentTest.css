@@ -77,6 +77,8 @@
   border-radius: var(--spacing-1x, 4px);
   flex-wrap: wrap;
   word-wrap: break-word;
+  overflow: visible;
+  max-height: none;
 }
 
 .component-test-preview .task-text {
