@@ -4,7 +4,7 @@ import react from '@vitejs/plugin-react'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-  base: '/personalcalendar/', // GitHub repository name
+  base: '/calendar/', // GitHub repository name
   build: {
     outDir: 'dist',
     assetsDir: 'assets',
