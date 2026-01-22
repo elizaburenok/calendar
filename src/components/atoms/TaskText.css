@@ -1,0 +1,22 @@
+.task-text {
+  display: inline-block;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  line-height: inherit;
+}
+
+/* Override color for primary text on dark background (white) */
+.task-text--primary-on-inverse {
+  color: var(--primitive-primary-on-inverse, #ffffff) !important;
+}
+
+/* Override color for secondary text on dark background (light grey) */
+.task-text--secondary-on-inverse {
+  color: var(--primitive-secondary-on-inverse, #aeaeae) !important;
+}
+
+/* Allow the text to wrap naturally across multiple lines */
+.task-text {
+  white-space: normal;
+  word-break: break-word;
+}

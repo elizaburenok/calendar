@@ -1,0 +1,15 @@
+.date-text {
+  display: inline-block;
+  /* Typography: TTN 400/XS */
+  font-family: "TT Norms Tochka Extended", sans-serif;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 15px; /* 125% */
+  letter-spacing: 1px;
+  /* Color: Primitive/Neutral 2 On Inverse */
+  color: var(--primitive-neutral-2-on-inverse, #525252);
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
+}

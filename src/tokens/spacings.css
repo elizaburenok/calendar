@@ -1,0 +1,30 @@
+/* Spacing Tokens */
+
+:root {
+  /* 2px intervals (0.5x increments) up to Spacing 6x */
+  --spacing-0-5x: 2px;  /* Spacing 0.5x */
+  --spacing-1x: 4px;    /* Spacing 1x */
+  --spacing-1-5x: 6px;  /* Spacing 1.5x */
+  --spacing-2x: 8px;    /* Spacing 2x */
+  --spacing-2-5x: 10px; /* Spacing 2.5x */
+  --spacing-3x: 12px;   /* Spacing 3x */
+  --spacing-3-5x: 14px; /* Spacing 3.5x */
+  --spacing-4x: 16px;   /* Spacing 4x */
+  --spacing-4-5x: 18px; /* Spacing 4.5x */
+  --spacing-5x: 20px;   /* Spacing 5x */
+  --spacing-5-5x: 22px; /* Spacing 5.5x */
+  --spacing-6x: 24px;   /* Spacing 6x */
+  --spacing-8x: 32px;   /* Spacing 8x */
+  --spacing-10x: 40px;  /* Spacing 10x */
+  --spacing-12x: 48px;  /* Spacing 12x */
+  --spacing-14x: 56px;  /* Spacing 14x */
+  --spacing-16x: 64px;  /* Spacing 16x */
+  --spacing-18x: 72px;  /* Spacing 18x */
+  --spacing-20x: 80px;  /* Spacing 20x */
+  --spacing-22x: 88px;  /* Spacing 22x */
+  --spacing-24x: 96px;  /* Spacing 24x */
+  --spacing-30x: 120px; /* Spacing 30x */
+  --spacing-34x: 136px; /* Spacing 34x */
+  --spacing-36x: 144px; /* Spacing 36x */
+  --spacing-40x: 160px; /* Spacing 40x */
+}

@@ -1,0 +1,15 @@
+.day-of-week-text {
+  display: inline-block;
+  /* Typography: TTN 600/L */
+  font-family: "TT Norms Tochka Extended", sans-serif;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 22px; /* 122.2% */
+  letter-spacing: 0px;
+  /* Color: Primitive/Primary On Inverse */
+  color: var(--primitive-primary-on-inverse, #ffffff);
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
+}

@@ -1,0 +1,32 @@
+.task-item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-3-5x, 14px);
+  width: 100%;
+}
+
+.task-item--disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.task-item__checkbox-wrapper {
+  flex-shrink: 0;
+  padding-bottom: 2px;
+}
+
+.task-item__checkbox {
+  margin-top: 0;
+}
+
+.task-item__text {
+  flex: 1;
+  min-width: 0; /* Allow text to shrink and wrap */
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+/* Ensure proper alignment when text wraps */
+.task-item {
+  line-height: 1.5;
+}

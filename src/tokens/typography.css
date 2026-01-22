@@ -1,0 +1,437 @@
+/* Typography Tokens */
+
+/* TT Norms 600 (DemiBold) - Primary Color */
+.text-ttn-600-7xl {
+  color: var(--primitive-primary, #191919);
+  font-family: "TT Norms Tochka Extended", sans-serif;
+  font-size: 60px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 66px; /* 110% */
+}
+
+.text-ttn-600-6xl {
+  color: var(--primitive-primary, #191919);
+  font-family: "TT Norms Tochka Extended", sans-serif;
+  font-size: 48px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 54px; /* 112.5% */
+}
+
+.text-ttn-600-5xl {
+  color: var(--primitive-primary, #191919);
+  font-family: "TT Norms Tochka Extended", sans-serif;
+  font-size: 42px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 48px; /* 114.3% */
+}
+
+.text-ttn-600-4xl {
+  color: var(--primitive-primary, #191919);
+  font-family: "TT Norms Tochka Extended", sans-serif;
+  font-size: 36px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 40px; /* 111.1% */
+}
+
+.text-ttn-600-3xl {
+  color: var(--primitive-primary, #191919);
+  font-family: "TT Norms Tochka Extended", sans-serif;
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 36px; /* 120% */
+}
+
+.text-ttn-600-2xl {
+  color: var(--primitive-primary, #191919);
+  font-family: "TT Norms Tochka Extended", sans-serif;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 30px; /* 125% */
+}
+
+.text-ttn-600-xl {
+  color: var(--primitive-primary, #191919);
+  font-family: "TT Norms Tochka Extended", sans-serif;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 26px; /* 130% */
+}
+
+.text-ttn-600-l {
+  color: var(--primitive-primary, #191919);
+  font-family: "TT Norms Tochka Extended", sans-serif;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 22px; /* 122.2% */
+}
+
+.text-ttn-600-m {
+  color: var(--primitive-primary, #191919);
+  font-family: "TT Norms Tochka Extended", sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 20px; /* 125% */
+}
+
+.text-ttn-600-s {
+  color: var(--primitive-primary, #191919);
+  font-family: "TT Norms Tochka Extended", sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 18px; /* 128.6% */
+}
+
+.text-ttn-600-xs {
+  color: var(--primitive-primary, #191919);
+  font-family: "TT Norms Tochka Extended", sans-serif;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 15px; /* 125% */
+}
+
+.text-ttn-600-xxs {
+  color: var(--primitive-primary, #191919);
+  font-family: "TT Norms Tochka Extended", sans-serif;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 13px; /* 130% */
+}
+
+/* TT Norms 500 (Medium) - Primary Color */
+.text-ttn-500-7xl {
+  color: var(--primitive-primary, #191919);
+  font-family: "TT Norms Tochka Extended", sans-serif;
+  font-size: 60px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 66px; /* 110% */
+}
+
+.text-ttn-500-6xl {
+  color: var(--primitive-primary, #191919);
+  font-family: "TT Norms Tochka Extended", sans-serif;
+  font-size: 48px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 54px; /* 112.5% */
+}
+
+.text-ttn-500-5xl {
+  color: var(--primitive-primary, #191919);
+  font-family: "TT Norms Tochka Extended", sans-serif;
+  font-size: 42px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 48px; /* 114.3% */
+}
+
+.text-ttn-500-4xl {
+  color: var(--primitive-primary, #191919);
+  font-family: "TT Norms Tochka Extended", sans-serif;
+  font-size: 36px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 40px; /* 111.1% */
+}
+
+.text-ttn-500-3xl {
+  color: var(--primitive-primary, #191919);
+  font-family: "TT Norms Tochka Extended", sans-serif;
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 36px; /* 120% */
+}
+
+.text-ttn-500-2xl {
+  color: var(--primitive-primary, #191919);
+  font-family: "TT Norms Tochka Extended", sans-serif;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 30px; /* 125% */
+}
+
+.text-ttn-500-xl {
+  color: var(--primitive-primary, #191919);
+  font-family: "TT Norms Tochka Extended", sans-serif;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 26px; /* 130% */
+}
+
+.text-ttn-500-l {
+  color: var(--primitive-primary, #191919);
+  font-family: "TT Norms Tochka Extended", sans-serif;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 22px; /* 122.2% */
+}
+
+.text-ttn-500-m {
+  color: var(--primitive-primary, #191919);
+  font-family: "TT Norms Tochka Extended", sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px; /* 125% */
+}
+
+.text-ttn-500-s {
+  color: var(--primitive-primary, #191919);
+  font-family: "TT Norms Tochka Extended", sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 18px; /* 128.6% */
+}
+
+.text-ttn-500-xs {
+  color: var(--primitive-primary, #191919);
+  font-family: "TT Norms Tochka Extended", sans-serif;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 15px; /* 125% */
+}
+
+.text-ttn-500-xxs {
+  color: var(--primitive-primary, #191919);
+  font-family: "TT Norms Tochka Extended", sans-serif;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 13px; /* 130% */
+}
+
+/* TT Norms 400 (Regular) - Primary Color */
+.text-ttn-400-7xl {
+  color: var(--primitive-primary, #191919);
+  font-family: "TT Norms Tochka Extended", sans-serif;
+  font-size: 60px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 66px; /* 110% */
+}
+
+.text-ttn-400-6xl {
+  color: var(--primitive-primary, #191919);
+  font-family: "TT Norms Tochka Extended", sans-serif;
+  font-size: 48px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 54px; /* 112.5% */
+}
+
+.text-ttn-400-5xl {
+  color: var(--primitive-primary, #191919);
+  font-family: "TT Norms Tochka Extended", sans-serif;
+  font-size: 42px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 48px; /* 114.3% */
+}
+
+.text-ttn-400-4xl {
+  color: var(--primitive-primary, #191919);
+  font-family: "TT Norms Tochka Extended", sans-serif;
+  font-size: 36px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 40px; /* 111.1% */
+}
+
+.text-ttn-400-3xl {
+  color: var(--primitive-primary, #191919);
+  font-family: "TT Norms Tochka Extended", sans-serif;
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 36px; /* 120% */
+}
+
+.text-ttn-400-2xl {
+  color: var(--primitive-primary, #191919);
+  font-family: "TT Norms Tochka Extended", sans-serif;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 30px; /* 125% */
+}
+
+.text-ttn-400-xl {
+  color: var(--primitive-primary, #191919);
+  font-family: "TT Norms Tochka Extended", sans-serif;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 26px; /* 130% */
+}
+
+.text-ttn-400-l {
+  color: var(--primitive-primary, #191919);
+  font-family: "TT Norms Tochka Extended", sans-serif;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 22px; /* 122.2% */
+}
+
+.text-ttn-400-m {
+  color: var(--primitive-primary, #191919);
+  font-family: "TT Norms Tochka Extended", sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px; /* 125% */
+}
+
+.text-ttn-400-s {
+  color: var(--primitive-primary, #191919);
+  font-family: "TT Norms Tochka Extended", sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 18px; /* 128.6% */
+}
+
+.text-ttn-400-xs {
+  color: var(--primitive-primary, #191919);
+  font-family: "TT Norms Tochka Extended", sans-serif;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 15px; /* 125% */
+}
+
+.text-ttn-400-xxs {
+  color: var(--primitive-primary, #191919);
+  font-family: "TT Norms Tochka Extended", sans-serif;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 13px; /* 130% */
+}
+
+/* TT Norms 500 (Medium) - Secondary Color */
+.text-ttn-500-7xl-secondary {
+  color: var(--primitive-secondary, #676767);
+  font-family: "TT Norms Tochka Extended", sans-serif;
+  font-size: 60px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 66px; /* 110% */
+}
+
+.text-ttn-500-6xl-secondary {
+  color: var(--primitive-secondary, #676767);
+  font-family: "TT Norms Tochka Extended", sans-serif;
+  font-size: 48px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 54px; /* 112.5% */
+}
+
+.text-ttn-500-5xl-secondary {
+  color: var(--primitive-secondary, #676767);
+  font-family: "TT Norms Tochka Extended", sans-serif;
+  font-size: 42px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 48px; /* 114.3% */
+}
+
+.text-ttn-500-4xl-secondary {
+  color: var(--primitive-secondary, #676767);
+  font-family: "TT Norms Tochka Extended", sans-serif;
+  font-size: 36px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 40px; /* 111.1% */
+}
+
+.text-ttn-500-3xl-secondary {
+  color: var(--primitive-secondary, #676767);
+  font-family: "TT Norms Tochka Extended", sans-serif;
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 36px; /* 120% */
+}
+
+.text-ttn-500-2xl-secondary {
+  color: var(--primitive-secondary, #676767);
+  font-family: "TT Norms Tochka Extended", sans-serif;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 30px; /* 125% */
+}
+
+.text-ttn-500-xl-secondary {
+  color: var(--primitive-secondary, #676767);
+  font-family: "TT Norms Tochka Extended", sans-serif;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 26px; /* 130% */
+}
+
+.text-ttn-500-l-secondary {
+  color: var(--primitive-secondary, #676767);
+  font-family: "TT Norms Tochka Extended", sans-serif;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 22px; /* 122.2% */
+}
+
+.text-ttn-500-m-secondary {
+  color: var(--primitive-secondary, #676767);
+  font-family: "TT Norms Tochka Extended", sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px; /* 125% */
+}
+
+.text-ttn-500-s-secondary {
+  color: var(--primitive-secondary, #676767);
+  font-family: "TT Norms Tochka Extended", sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 18px; /* 128.6% */
+}
+
+.text-ttn-500-xs-secondary {
+  color: var(--primitive-secondary, #676767);
+  font-family: "TT Norms Tochka Extended", sans-serif;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 15px; /* 125% */
+}
+
+.text-ttn-500-xxs-secondary {
+  color: var(--primitive-secondary, #676767);
+  font-family: "TT Norms Tochka Extended", sans-serif;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 13px; /* 130% */
+}

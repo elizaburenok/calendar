@@ -1,0 +1,27 @@
+/* Rounding Tokens */
+
+:root {
+  /* 2px intervals (0.5x increments) up to Rounding 6x */
+  --rounding-0-5x: 2px;  /* Rounding 0.5x */
+  --rounding-1x: 4px;    /* Rounding 1x */
+  --rounding-1-5x: 6px;  /* Rounding 1.5x */
+  --rounding-2x: 8px;    /* Rounding 2x */
+  --rounding-2-5x: 10px; /* Rounding 2.5x */
+  --rounding-3x: 12px;   /* Rounding 3x */
+  --rounding-3-5x: 14px; /* Rounding 3.5x */
+  --rounding-4x: 16px;   /* Rounding 4x */
+  --rounding-4-5x: 18px; /* Rounding 4.5x */
+  --rounding-5x: 20px;   /* Rounding 5x */
+  --rounding-5-5x: 22px; /* Rounding 5.5x */
+  --rounding-6x: 24px;   /* Rounding 6x */
+  --rounding-6-5x: 32px;  /* Rounding 6.5x */
+  --rounding-7x: 40px;    /* Rounding 7x */
+  --rounding-7-5x: 48px;  /* Rounding 7.5x */
+  --rounding-8x: 56px;    /* Rounding 8x */
+  --rounding-8-5x: 64px;  /* Rounding 8.5x */
+  --rounding-9x: 72px;    /* Rounding 9x */
+  --rounding-9-5x: 80px;  /* Rounding 9.5x */
+  --rounding-10x: 88px;   /* Rounding 10x */
+  --rounding-10-5x: 96px; /* Rounding 10.5x */
+  --rounding-11x: 104px;  /* Rounding 11x */
+}

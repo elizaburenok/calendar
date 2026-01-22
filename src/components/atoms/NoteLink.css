@@ -1,0 +1,46 @@
+.note-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-2-5x, 10px);
+  background: none;
+  border: none;
+  padding: 0;
+  height: 40px;
+  cursor: pointer;
+  /* Typography: TTN 400/M */
+  font-family: "TT Norms Tochka Extended", sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px; /* 125% */
+  letter-spacing: 1px;
+  /* Color: Primitive/Secondary On Inverse */
+  color: var(--primitive-secondary-on-inverse, #aeaeae);
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+.note-link:hover {
+  opacity: 0.8;
+}
+
+.note-link:active {
+  opacity: 0.6;
+}
+
+.note-link:focus {
+  outline: 2px solid var(--primitive-primary-on-inverse, #ffffff);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+.note-link__icon {
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  color: inherit;
+}
+
+.note-link__text {
+  color: inherit;
+}

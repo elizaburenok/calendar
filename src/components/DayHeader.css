@@ -1,0 +1,24 @@
+.day-header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0;
+  width: 100%;
+}
+
+.day-header__text-wrapper {
+  padding-bottom: 10px;
+}
+
+.day-header__date {
+  margin-bottom: 0;
+}
+
+.day-header__day {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.day-header__note {
+  margin-top: 0;
+}

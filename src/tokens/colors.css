@@ -1,0 +1,63 @@
+/* Color Tokens */
+
+:root {
+  /* Primary Colors */
+  --primitive-primary: #191919;
+  --primitive-primary-fixed: #191919;
+  --primitive-primary-on-inverse: #ffffff;
+  --primitive-primary-on-inverse-fixed: #ffffff;
+
+  /* Secondary Colors */
+  --primitive-secondary: #676767;
+  --primitive-secondary-fixed: #676767;
+  --primitive-secondary-on-inverse: #aeaeae;
+  --primitive-secondary-on-inverse-fixed: #aeaeae;
+
+  /* Neutral 1 Colors */
+  --primitive-neutral-1: #e1e1e1;
+  --primitive-neutral-1-fixed: #e1e1e1;
+  --primitive-neutral-1-on-inverse: #474747;
+  --primitive-neutral-1-on-inverse-fixed: #474747;
+
+  /* Neutral 2 Colors */
+  --primitive-neutral-2: #d4d4d4;
+  --primitive-neutral-2-fixed: #d4d4d4;
+  --primitive-neutral-2-on-inverse: #525252;
+  --primitive-neutral-2-on-inverse-fixed: #525252;
+
+  /* Neutral 3 Colors */
+  --primitive-neutral-3: #c8c8c8;
+  --primitive-neutral-3-fixed: #c8c8c8;
+  --primitive-neutral-3-on-inverse: #5e5e5e;
+  --primitive-neutral-3-on-inverse-fixed: #5e5e5e;
+
+  /* Neutral 4 Colors */
+  --primitive-neutral-4: #949494;
+  --primitive-neutral-4-fixed: #949494;
+  --primitive-neutral-4-on-inverse: #777777;
+  --primitive-neutral-4-on-inverse-fixed: #777777;
+
+  /* Brand Colors */
+  --primitive-brand: #835de1;
+  --primitive-brand-fixed: #835de1;
+  --primitive-brand-on-inverse: #9b7ef1;
+
+  /* Success Colors */
+  --primitive-success: #5cad9a;
+  --primitive-success-fixed: #5cad9a;
+  --primitive-success-on-inverse: #5cad9a;
+
+  /* Error Colors */
+  --primitive-error: #d84d4d;
+  --primitive-error-fixed: #d84d4d;
+  --primitive-error-on-inverse: #fc6667;
+
+  /* Warning Colors */
+  --primitive-warning: #f0c555;
+  --primitive-warning-fixed: #f0c555;
+  --primitive-warning-on-inverse: #f0c555;
+
+  /* Default/Background Colors */
+  --primitive-default: #ffffff;
+  --primitive-default-fixed: #ffffff;
+}

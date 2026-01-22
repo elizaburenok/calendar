@@ -1,0 +1,116 @@
+.component-test {
+  padding: var(--spacing-6x, 24px);
+  max-width: 1400px;
+  margin: 0 auto;
+  min-height: 100vh;
+  background-color: #000000;
+  color: var(--primitive-primary-on-inverse, #ffffff);
+}
+
+.component-test-header {
+  margin-bottom: var(--spacing-8x, 32px);
+  text-align: center;
+}
+
+.component-test-header h1 {
+  margin: 0 0 var(--spacing-1x, 4px) 0;
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--primitive-primary-on-inverse, #ffffff);
+}
+
+.component-test-header p {
+  margin: 0;
+  color: var(--primitive-secondary-on-inverse, #aeaeae);
+  font-size: 1rem;
+}
+
+.component-test-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-8x, 32px);
+}
+
+.component-test-section {
+  background-color: rgba(255, 255, 255, 0.02);
+  border-radius: var(--spacing-2x, 8px);
+  padding: var(--spacing-6x, 24px);
+}
+
+.component-test-section h2 {
+  margin: 0 0 var(--spacing-6x, 24px) 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--primitive-primary-on-inverse, #ffffff);
+}
+
+.component-test-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--spacing-6x, 24px);
+}
+
+.component-test-item {
+  padding: var(--spacing-4x, 16px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--spacing-2x, 8px);
+  background-color: rgba(255, 255, 255, 0.02);
+}
+
+.component-test-label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--primitive-secondary-on-inverse, #aeaeae);
+  margin-bottom: var(--spacing-3x, 12px);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.component-test-preview {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  min-height: 60px;
+  margin-bottom: var(--spacing-3x, 12px);
+  padding: var(--spacing-2x, 8px);
+  background-color: rgba(255, 255, 255, 0.01);
+  border-radius: var(--spacing-1x, 4px);
+  flex-wrap: wrap;
+  word-wrap: break-word;
+}
+
+.component-test-preview .task-text {
+  max-width: 100%;
+}
+
+.component-test-code {
+  font-size: 0.75rem;
+  color: var(--primitive-neutral-4-on-inverse, #777777);
+  font-family: 'Courier New', monospace;
+  padding-top: var(--spacing-2x, 8px);
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  word-break: break-all;
+}
+
+.component-test-item--full-width {
+  grid-column: 1 / -1;
+}
+
+.component-test-preview--task-item {
+  min-height: auto;
+  padding: var(--spacing-3x, 12px);
+  align-items: flex-start;
+}
+.component-test-preview--task-item .task-item {
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .component-test {
+    padding: var(--spacing-4x, 16px);
+  }
+  
+  .component-test-grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,91 @@
+.calendar-page {
+  width: 100%;
+  min-height: 100vh;
+  padding: var(--spacing-5x);
+}
+
+.calendar-page__grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: var(--spacing-10x);
+  width: 100%;
+  max-width: 100%;
+}
+
+/* First main div - 3 columns */
+.calendar-page__left-section {
+  grid-column: span 3;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-10x);
+}
+
+/* Active Plan Day block */
+.calendar-page__active-plan-day {
+  flex: 1;
+  min-height: 200px;
+  padding: var(--spacing-5x);
+  background: white;
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+}
+
+.calendar-page__active-plan-day h2 {
+  margin: 0 0 var(--spacing-5x) 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+/* Inbox notes block */
+.calendar-page__inbox-notes {
+  flex: 1;
+  min-height: 200px;
+  padding: var(--spacing-5x);
+  background: white;
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+}
+
+.calendar-page__inbox-notes h2 {
+  margin: 0 0 var(--spacing-5x) 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+/* Second main div - 9 columns */
+.calendar-page__right-section {
+  grid-column: span 9;
+}
+
+.calendar-page__calendar {
+  width: 100%;
+  padding: var(--spacing-5x);
+  background: white;
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+}
+
+.calendar-page__calendar h2 {
+  margin: 0 0 var(--spacing-5x) 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+/* 6 days grid - 3 columns, 2 rows */
+.calendar-page__days-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--spacing-10x);
+}
+
+.calendar-page__day {
+  min-height: 200px;
+  padding: var(--spacing-5x);
+  background: #f9fafb;
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 500;
+}
