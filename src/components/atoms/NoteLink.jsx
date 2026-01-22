@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import './NoteLink.css'
 import penIcon from '../../icons/Stroked 2px/Pen.png'
 
@@ -7,6 +7,7 @@ import penIcon from '../../icons/Stroked 2px/Pen.png'
  * 
  * A combined interactive element displaying a pencil icon and "Заметка" text.
  * Used as a single reusable atom for note-related actions.
+ * Can be clicked to enter edit mode and accept user input.
  * 
  * @param {function} onClick - Callback function called when NoteLink is clicked
  * @param {string} className - Optional additional CSS classes
@@ -17,30 +18,68 @@ const NoteLink = ({
   className = '',
   ...rest 
 }) => {
-  const handleClick = (e) => {
-    if (onClick) {
-      onClick(e)
+  const [isEditing, setIsEditing] = useState(false)
+  const [value, setValue] = useState('')
+  const inputRef = useRef(null)
+
+  useEffect(() => {
+    if (isEditing && inputRef.current) {
+      inputRef.current.focus()
+    }
+  }, [isEditing])
+
+  const handleMouseDown = (e) => {
+    if (!isEditing) {
+      e.preventDefault()
+      e.stopPropagation()
+      // Set editing state immediately on mousedown to prevent focus outline flash
+      setIsEditing(true)
     }
   }
 
+  const handleClick = (e) => {
+    // Prevent default click behavior
+    e.preventDefault()
+    e.stopPropagation()
+  }
+
+  const handleBlur = () => {
+    setIsEditing(false)
+  }
+
+  const handleChange = (e) => {
+    setValue(e.target.value)
+  }
+
   const handleKeyDown = (e) => {
-    // Make it keyboard accessible
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault()
-      if (onClick) {
-        onClick(e)
+    if (isEditing) {
+      if (e.key === 'Escape') {
+        setIsEditing(false)
+        inputRef.current?.blur()
+      }
+    } else {
+      // Allow keyboard activation when not editing
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault()
+        e.stopPropagation()
+        setIsEditing(true)
       }
     }
   }
 
+  // Extract onClick from rest to avoid conflicts
+  const { onClick: restOnClick, ...restProps } = rest
+  
   return (
-    <button
-      className={`note-link ${className}`}
-      onClick={handleClick}
-      onKeyDown={handleKeyDown}
-      type="button"
+    <div
+      className={`note-link ${isEditing ? 'note-link--editing' : ''} ${value ? 'note-link--has-value' : ''} ${className}`}
+      onMouseDown={!isEditing ? handleMouseDown : undefined}
+      onClick={!isEditing ? handleClick : undefined}
+      onKeyDown={!isEditing ? handleKeyDown : undefined}
+      tabIndex={!isEditing ? 0 : -1}
+      role={!isEditing ? 'button' : undefined}
       aria-label="Заметка"
-      {...rest}
+      {...restProps}
     >
       <div 
         className="note-link__icon-wrapper"
@@ -55,8 +94,27 @@ const NoteLink = ({
           aria-hidden="true"
         />
       </div>
-      <span className="note-link__text">Заметка</span>
-    </button>
+      {isEditing ? (
+        <input
+          ref={inputRef}
+          type="text"
+          className="note-link__input"
+          placeholder="Заметка"
+          value={value}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          onKeyDown={(e) => {
+            handleKeyDown(e)
+            // Allow input to handle its own key events
+          }}
+          aria-label="Заметка"
+        />
+      ) : (
+        <span className="note-link__text">
+          {value || 'Заметка'}
+        </span>
+      )}
+    </div>
   )
 }
 

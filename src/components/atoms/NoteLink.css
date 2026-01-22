@@ -20,18 +20,30 @@
   transition: opacity 0.2s ease;
 }
 
-.note-link:hover {
+.note-link:hover:not(.note-link--editing) {
   opacity: 0.8;
 }
 
-.note-link:active {
+.note-link:active:not(.note-link--editing) {
   opacity: 0.6;
 }
 
-.note-link:focus {
+/* Only show focus outline for keyboard navigation, not mouse clicks */
+.note-link:focus-visible:not(.note-link--editing) {
   outline: 2px solid var(--primitive-primary-on-inverse, #ffffff);
   outline-offset: 2px;
   border-radius: 2px;
+}
+
+/* Remove outline completely when editing or when focused via mouse */
+.note-link:focus-within:not(:focus-visible),
+.note-link--editing {
+  outline: none;
+}
+
+.note-link--has-value .note-link__text {
+  /* Color: Primitive/Primary On Inverse */
+  color: var(--primitive-primary-on-inverse, #ffffff);
 }
 
 .note-link__icon {
@@ -43,4 +55,36 @@
 
 .note-link__text {
   color: inherit;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 100%;
+}
+
+.note-link__input {
+  background: none;
+  border: none;
+  outline: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  min-width: 0;
+  /* Typography: TTN 400/M */
+  font-family: "TT Norms Tochka Extended", sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px; /* 125% */
+  letter-spacing: 1px;
+  /* Color: Primitive/Primary On Inverse */
+  color: var(--primitive-primary-on-inverse, #ffffff);
+  cursor: text;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.note-link__input::placeholder {
+  /* Color: Primitive/Secondary On Inverse */
+  color: var(--primitive-secondary-on-inverse, #aeaeae);
 }
