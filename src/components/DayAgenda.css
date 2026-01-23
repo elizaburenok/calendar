@@ -1,0 +1,23 @@
+.day-agenda {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0;
+  width: 100%;
+}
+
+.day-agenda__header {
+  width: 100%;
+}
+
+.day-agenda__tasks-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2x, 8px); /* spacings/s */
+  width: 100%;
+  margin-top: var(--spacing-1x, 4px); /* spacings/xs - spacing between note link and task list */
+}
+
+.day-agenda__task-item {
+  width: 100%;
+}

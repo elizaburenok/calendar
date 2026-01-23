@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { Checkbox, DateText, DayOfWeekText, NoteLink, TaskText } from '../../components/atoms'
-import { DayHeader, TaskItem } from '../../components'
+import { DayAgenda, DayHeader, TaskItem } from '../../components'
 import './ComponentTest.css'
 import '../../tokens/colors.css'
 import '../../tokens/typography.css'
@@ -12,6 +12,71 @@ const ComponentTest = () => {
   const [task1, setTask1] = useState(false)
   const [task2, setTask2] = useState(true)
   const [task3, setTask3] = useState(false)
+  
+  // State for managing notes with Enter functionality
+  const [notes, setNotes] = useState([''])
+  const noteRefs = useRef([])
+  
+  // Auto-focus the last empty note when a new one is created
+  useEffect(() => {
+    if (notes.length > 0) {
+      const lastIndex = notes.length - 1
+      if (notes[lastIndex] === '' && noteRefs.current[lastIndex]) {
+        // Small delay to ensure DOM is updated
+        setTimeout(() => {
+          const noteElement = noteRefs.current[lastIndex]
+          if (noteElement) {
+            const input = noteElement.querySelector('input')
+            if (input) {
+              input.focus()
+            } else {
+              // If input doesn't exist yet, click to enter edit mode
+              noteElement.click()
+            }
+          }
+        }, 0)
+      }
+    }
+  }, [notes])
+  
+  // DayAgenda tasks state
+  const [dayAgendaTasks, setDayAgendaTasks] = useState([
+    {
+      id: 'task-1',
+      text: 'Проверить что ребята принесли примеры и подписали основные экраны для наглядности',
+      checked: false
+    },
+    {
+      id: 'task-2',
+      text: 'Проверить что ребята принесли примеры и подписали основные экраны для наглядности',
+      checked: false
+    },
+    {
+      id: 'task-3',
+      text: 'Проверить что ребята принесли примеры и подписали основные экраны для наглядности',
+      checked: false
+    }
+  ])
+  
+  const handleDayAgendaTaskToggle = (taskId, newChecked) => {
+    setDayAgendaTasks(prevTasks =>
+      prevTasks.map(task =>
+        task.id === taskId ? { ...task, checked: newChecked } : task
+      )
+    )
+  }
+
+  // Handle note Enter - save current note and create new empty one
+  const handleNoteEnter = (savedValue, noteIndex) => {
+    setNotes(prevNotes => {
+      const newNotes = [...prevNotes]
+      // Update the current note with saved value
+      newNotes[noteIndex] = savedValue
+      // Add a new empty note at the end
+      newNotes.push('')
+      return newNotes
+    })
+  }
 
   return (
     <div className="component-test">
@@ -174,11 +239,19 @@ const ComponentTest = () => {
           <div className="component-test-grid">
             <div className="component-test-item">
               <div className="component-test-label">Default (Interactive)</div>
-              <div className="component-test-preview">
-                <NoteLink onClick={() => alert('NoteLink clicked!')} />
+              <div className="component-test-preview" style={{ display: 'flex', flexDirection: 'column', gap: 0, overflow: 'visible', minHeight: 'auto' }}>
+                {notes.map((note, index) => (
+                  <NoteLink
+                    key={index}
+                    initialValue={note}
+                    autoFocus={note === '' && index === notes.length - 1}
+                    onEnter={(savedValue) => handleNoteEnter(savedValue, index)}
+                    onClick={() => alert('NoteLink clicked!')}
+                  />
+                ))}
               </div>
               <div className="component-test-code">
-                &lt;NoteLink onClick={'{handleClick}'} /&gt;
+                &lt;NoteLink onClick={'{handleClick}'} onEnter={'{handleNoteEnter}'} /&gt;
               </div>
             </div>
 
@@ -234,6 +307,66 @@ const ComponentTest = () => {
               </div>
               <div className="component-test-code">
                 &lt;DayHeader date="1 февраля" dayOfWeek="Вторник" onNoteClick={'{handleClick}'} /&gt;
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="component-test-section">
+          <h2>DayAgenda (Full Component from Figma)</h2>
+          <div className="component-test-grid">
+            <div className="component-test-item component-test-item--full-width">
+              <div className="component-test-label">From Figma Design - Complete Day View</div>
+              <div className="component-test-preview component-test-preview--task-item" style={{ backgroundColor: '#191919', padding: '16px', borderRadius: '4px' }}>
+                <DayAgenda
+                  date="16 января"
+                  dayOfWeek="Понедельник"
+                  tasks={dayAgendaTasks}
+                  onNoteClick={() => alert('Note clicked!')}
+                  onTaskToggle={handleDayAgendaTaskToggle}
+                />
+              </div>
+              <div className="component-test-code">
+                &lt;DayAgenda
+                  date="16 января"
+                  dayOfWeek="Понедельник"
+                  tasks={'{tasks}'}
+                  onNoteClick={'{handleNoteClick}'}
+                  onTaskToggle={'{handleTaskToggle}'}
+                /&gt;
+              </div>
+            </div>
+
+            <div className="component-test-item component-test-item--full-width">
+              <div className="component-test-label">Different Date with Completed Tasks</div>
+              <div className="component-test-preview component-test-preview--task-item" style={{ backgroundColor: '#191919', padding: '16px', borderRadius: '4px' }}>
+                <DayAgenda
+                  date="1 февраля"
+                  dayOfWeek="Вторник"
+                  tasks={[
+                    {
+                      id: 'task-a',
+                      text: 'Завершенная задача',
+                      checked: true
+                    },
+                    {
+                      id: 'task-b',
+                      text: 'Активная задача',
+                      checked: false
+                    }
+                  ]}
+                  onNoteClick={() => alert('Note clicked!')}
+                  onTaskToggle={(taskId, checked) => console.log('Task toggled:', taskId, checked)}
+                />
+              </div>
+              <div className="component-test-code">
+                &lt;DayAgenda
+                  date="1 февраля"
+                  dayOfWeek="Вторник"
+                  tasks={'{tasksWithMixedStates}'}
+                  onNoteClick={'{handleNoteClick}'}
+                  onTaskToggle={'{handleTaskToggle}'}
+                /&gt;
               </div>
             </div>
           </div>
