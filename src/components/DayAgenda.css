@@ -10,6 +10,18 @@
   width: 100%;
 }
 
+.day-agenda__notes-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-1x, 4px);
+  width: 100%;
+  margin-top: var(--spacing-1x, 4px);
+}
+
+.day-agenda__note-wrapper {
+  width: 100%;
+}
+
 .day-agenda__tasks-list {
   display: flex;
   flex-direction: column;

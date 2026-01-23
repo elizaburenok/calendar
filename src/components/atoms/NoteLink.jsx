@@ -8,17 +8,20 @@ import penIcon from '../../icons/Stroked 2px/Pen.png'
  * A combined interactive element displaying a pencil icon and "Заметка" text.
  * Used as a single reusable atom for note-related actions.
  * Can be clicked to enter edit mode and accept user input.
- * 
+ *
  * @param {function} onClick - Callback function called when NoteLink is clicked
  * @param {function} onEnter - Callback function called when Enter is pressed while editing (receives saved value)
+ * @param {function} onDelete - Callback called when the empty note is deleted via keyboard
  * @param {string} initialValue - Initial value for the note (optional)
  * @param {boolean} autoFocus - If true, automatically enter edit mode when component mounts (for empty notes)
+ * @param {function} onEnter - Callback function called when Enter is pressed while editing (receives saved value)
  * @param {string} className - Optional additional CSS classes
  * @param {object} rest - Any additional props to pass to the element
  */
 const NoteLink = ({ 
   onClick,
   onEnter,
+  onDelete,
   initialValue = '',
   autoFocus = false,
   className = '',
@@ -77,6 +80,16 @@ const NoteLink = ({
   const handleKeyDown = (e) => {
     // Only handle keys when not editing (input handles its own keys)
     if (!isEditing) {
+      const isEmpty = !value || !value.trim()
+
+      // Delete current NoteLink when focused and empty
+      if ((e.key === 'Backspace' || e.key === 'Delete') && isEmpty && onDelete) {
+        e.preventDefault()
+        e.stopPropagation()
+        onDelete()
+        return
+      }
+
       // Allow keyboard activation when not editing
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault()
@@ -87,6 +100,18 @@ const NoteLink = ({
   }
 
   const handleInputKeyDown = (e) => {
+    const isEmpty = !value || !value.trim()
+
+    // Delete current NoteLink when editing and empty
+    if ((e.key === 'Backspace' || e.key === 'Delete') && isEmpty && onDelete) {
+      e.preventDefault()
+      e.stopPropagation()
+      setIsEditing(false)
+      inputRef.current?.blur()
+      onDelete()
+      return
+    }
+
     if (e.key === 'Enter') {
       // Save the note and create a new one
       e.preventDefault()
@@ -98,8 +123,9 @@ const NoteLink = ({
       setIsEditing(false)
       inputRef.current?.blur()
       
-      // Call onEnter callback with the saved value
-      if (onEnter && savedValue) {
+      // Call onEnter callback with the saved value (always call, even if empty)
+      // Parent can decide whether to create a new note based on the value
+      if (onEnter) {
         onEnter(savedValue)
       }
     } else if (e.key === 'Escape') {
