@@ -13,29 +13,50 @@ const ComponentTest = () => {
   const [task2, setTask2] = useState(true)
   const [task3, setTask3] = useState(false)
   
-  // State for managing notes with Enter functionality
+  // State for managing notes with Enter/Delete functionality
   const [notes, setNotes] = useState([''])
   const noteRefs = useRef([])
+
+  // Helper: focus existing input or programmatically enter edit mode on NoteLink
+  const focusOrEnterEdit = (noteElement) => {
+    if (!noteElement) return
+
+    // If input already exists, just focus it
+    const existingInput = noteElement.querySelector('input')
+    if (existingInput) {
+      existingInput.focus()
+      return
+    }
+
+    // Otherwise, dispatch a mousedown on the inner .note-link to trigger edit mode
+    const noteLinkElement = noteElement.querySelector('.note-link')
+    if (noteLinkElement) {
+      const mouseDownEvent = new MouseEvent('mousedown', {
+        bubbles: true,
+        cancelable: true
+      })
+      noteLinkElement.dispatchEvent(mouseDownEvent)
+
+      // After NoteLink enters edit mode, focus the newly created input
+      setTimeout(() => {
+        const newInput = noteElement.querySelector('input')
+        if (newInput) {
+          newInput.focus()
+        }
+      }, 0)
+    }
+  }
   
   // Auto-focus the last empty note when a new one is created
   useEffect(() => {
-    if (notes.length > 0) {
-      const lastIndex = notes.length - 1
-      if (notes[lastIndex] === '' && noteRefs.current[lastIndex]) {
-        // Small delay to ensure DOM is updated
-        setTimeout(() => {
-          const noteElement = noteRefs.current[lastIndex]
-          if (noteElement) {
-            const input = noteElement.querySelector('input')
-            if (input) {
-              input.focus()
-            } else {
-              // If input doesn't exist yet, click to enter edit mode
-              noteElement.click()
-            }
-          }
-        }, 0)
-      }
+    if (notes.length === 0) return
+    const lastIndex = notes.length - 1
+    if (notes[lastIndex] === '' && noteRefs.current[lastIndex]) {
+      // Small delay to ensure DOM is updated
+      setTimeout(() => {
+        const noteElement = noteRefs.current[lastIndex]
+        focusOrEnterEdit(noteElement)
+      }, 0)
     }
   }, [notes])
   
@@ -76,6 +97,22 @@ const ComponentTest = () => {
       newNotes.push('')
       return newNotes
     })
+  }
+
+  // Handle note Delete - remove current note when it's empty
+  const handleNoteDelete = (noteIndex) => {
+    setNotes(prevNotes => {
+      const newNotes = prevNotes.filter((_, index) => index !== noteIndex)
+      // Always keep at least one empty note so user can create a new one
+      return newNotes.length > 0 ? newNotes : ['']
+    })
+
+    // After deletion, move focus to the previous note (if any)
+    setTimeout(() => {
+      const targetIndex = Math.max(noteIndex - 1, 0)
+      const noteElement = noteRefs.current[targetIndex]
+      focusOrEnterEdit(noteElement)
+    }, 0)
   }
 
   return (
@@ -241,13 +278,19 @@ const ComponentTest = () => {
               <div className="component-test-label">Default (Interactive)</div>
               <div className="component-test-preview" style={{ display: 'flex', flexDirection: 'column', gap: 0, overflow: 'visible', minHeight: 'auto' }}>
                 {notes.map((note, index) => (
-                  <NoteLink
+                  <div
                     key={index}
-                    initialValue={note}
-                    autoFocus={note === '' && index === notes.length - 1}
-                    onEnter={(savedValue) => handleNoteEnter(savedValue, index)}
-                    onClick={() => alert('NoteLink clicked!')}
-                  />
+                    ref={(el) => { noteRefs.current[index] = el }}
+                    style={{ display: 'flex' }}
+                  >
+                    <NoteLink
+                      initialValue={note}
+                      autoFocus={note === '' && index === notes.length - 1}
+                      onEnter={(savedValue) => handleNoteEnter(savedValue, index)}
+                      onDelete={() => handleNoteDelete(index)}
+                      onClick={() => {}}
+                    />
+                  </div>
                 ))}
               </div>
               <div className="component-test-code">

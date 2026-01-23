@@ -11,6 +11,10 @@ import './DayHeader.css'
  * @param {string|Date} date - The date to display (can be a Date object or formatted string)
  * @param {string} dayOfWeek - The day of week text to display (e.g., "Понедельник")
  * @param {function} onNoteClick - Callback function called when NoteLink is clicked
+ * @param {string} noteValue - Optional value for the NoteLink (when integrated with notes list)
+ * @param {function} onNoteEnter - Optional callback for Enter key (when integrated with notes list)
+ * @param {function} onNoteDelete - Optional callback for Delete key (when integrated with notes list)
+ * @param {boolean} noteAutoFocus - Optional auto-focus for NoteLink (when integrated with notes list)
  * @param {string} className - Optional additional CSS classes
  * @param {object} rest - Any additional props to pass to the container element
  */
@@ -18,6 +22,10 @@ const DayHeader = ({
   date,
   dayOfWeek,
   onNoteClick,
+  noteValue,
+  onNoteEnter,
+  onNoteDelete,
+  noteAutoFocus = false,
   className = '',
   ...rest
 }) => {
@@ -35,7 +43,13 @@ const DayHeader = ({
         </DayOfWeekText>
       </div>
       <div className="day-header__note">
-        <NoteLink onClick={onNoteClick} />
+        <NoteLink 
+          onClick={onNoteClick}
+          initialValue={noteValue}
+          onEnter={onNoteEnter}
+          onDelete={onNoteDelete}
+          autoFocus={noteAutoFocus}
+        />
       </div>
     </div>
   )
