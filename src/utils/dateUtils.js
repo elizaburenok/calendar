@@ -82,3 +82,21 @@ export const getDayName = (date, short = false) => {
     : ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
   return dayNames[date.getDay()]
 }
+
+/**
+ * Get Russian day name
+ * @param {Date} date - Date to get day name for
+ * @returns {string} Russian day name (e.g., "Понедельник")
+ */
+export const getRussianDayName = (date) => {
+  const dayNames = [
+    'Воскресенье',
+    'Понедельник',
+    'Вторник',
+    'Среда',
+    'Четверг',
+    'Пятница',
+    'Суббота'
+  ]
+  return dayNames[date.getDay()]
+}
