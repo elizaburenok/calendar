@@ -176,23 +176,7 @@ const DayAgenda = ({
 
   const [localTasks, setLocalTasks] = useState(() => {
     // Start with provided tasks
-    const initialTasks = tasks.length > 0 ? [...tasks] : []
-    
-    // Always append 2 empty placeholder tasks
-    const emptyTasks = [
-      {
-        id: `task-empty-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
-        text: '',
-        checked: false
-      },
-      {
-        id: `task-empty-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
-        text: '',
-        checked: false
-      }
-    ]
-    
-    return [...initialTasks, ...emptyTasks]
+    return tasks.length > 0 ? [...tasks] : []
   })
   const taskRefs = useRef([])
   const [focusTaskIndex, setFocusTaskIndex] = useState(null)
@@ -262,12 +246,53 @@ const DayAgenda = ({
 
   const handleTaskUpdate = (savedValue, taskIndex) => {
     setLocalTasks((prevTasks) => {
+      // If the saved value is empty, remove the task
+      if (!savedValue.trim()) {
+        const newTasks = prevTasks.filter((_, index) => index !== taskIndex)
+        return newTasks
+      }
+
       const newTasks = [...prevTasks]
       // Update the current task with saved value
       if (newTasks[taskIndex]) {
         newTasks[taskIndex] = { ...newTasks[taskIndex], text: savedValue }
       }
       return newTasks
+    })
+  }
+
+  const handleContainerClick = (e) => {
+    // Check if the click is on an interactive element or existing task
+    if (
+      e.target.closest('.day-agenda__header') ||
+      e.target.closest('.day-agenda__notes-list') ||
+      e.target.closest('.day-agenda__task-item') ||
+      e.target.closest('input') ||
+      e.target.closest('button') ||
+      e.target.closest('a')
+    ) {
+      return
+    }
+
+    setLocalTasks((prevTasks) => {
+      const lastTask = prevTasks[prevTasks.length - 1]
+      
+      // If last task exists and is empty, don't add another one, just focus it
+      if (lastTask && !lastTask.text) {
+        setTimeout(() => setFocusTaskIndex(prevTasks.length - 1), 0)
+        return prevTasks
+      }
+      
+      const newTask = {
+        id: `task-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+        text: '',
+        checked: false
+      }
+      
+      // Focus the new task
+      setTimeout(() => setFocusTaskIndex(prevTasks.length), 0)
+      
+      return [...prevTasks, newTask]
     })
   }
 
@@ -320,6 +345,7 @@ const DayAgenda = ({
   return (
     <div 
       className={`day-agenda ${className}`}
+      onClick={handleContainerClick}
       {...rest}
     >
       <DayHeader

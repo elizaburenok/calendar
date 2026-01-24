@@ -8,13 +8,8 @@
 
 .inbox-notes__list {
   /* Show approximately 3 items (3 * 40px = 120px) */
-  /* If we want to strictly show 3 and scroll others, we can use max-height or height */
-  /* If flex: 1 is used, it fills available space. But the design requirement is specific. */
-  /* Let's try max-height to ensure "hide by scroll" kicks in after 3 items if space allows more, 
-     or just let it fill if the container is small?
-     "Show only three last created notes and other hide by scroll" implies visual limitation.
-  */
-  max-height: 120px;
+  /* Increased to ensure 3 items are clearly visible */
+  max-height: 140px;
   overflow-y: auto;
   margin-bottom: var(--spacing-2x, 8px);
   
@@ -39,9 +34,20 @@
 .inbox-notes__input-wrapper {
   margin-top: auto;
   padding-top: var(--spacing-2x, 8px);
-  border-top: 1px solid var(--primitive-neutral-1);
 }
 
 .inbox-notes .note-link {
   width: 100%;
+  height: auto;
+  min-height: 40px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  align-items: flex-start;
+}
+
+.inbox-notes .note-link__text {
+  white-space: normal;
+  overflow: visible;
+  text-overflow: clip;
+  word-break: break-word;
 }

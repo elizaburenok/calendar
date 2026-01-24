@@ -40,7 +40,7 @@
 /* Inbox notes block */
 .calendar-page__inbox-notes {
   flex: 1;
-  min-height: 200px;
+  min-height: 250px;
   padding: var(--spacing-5x);
   /* background: white; Removed */
   /* border: 1px solid #e5e5e5; Removed */

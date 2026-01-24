@@ -2,6 +2,14 @@ import React, { useState } from 'react'
 import NoteLink from '../atoms/NoteLink'
 import './InboxNotes.css'
 
+const BulletIcon = (
+  <div style={{ padding: '8px 6px 8px 0', display: 'flex', alignItems: 'center' }}>
+    <svg xmlns="http://www.w3.org/2000/svg" width="6" height="6" viewBox="0 0 6 6" fill="none">
+      <circle cx="3" cy="3" r="3" fill="#525252"/>
+    </svg>
+  </div>
+)
+
 const InboxNotes = () => {
   const [notes, setNotes] = useState([])
   const [inputKey, setInputKey] = useState(0)
@@ -47,6 +55,7 @@ const InboxNotes = () => {
             onEnter={(val) => updateNote(note.id, val)}
             onDelete={() => deleteNote(note.id)}
             style={{ width: '100%' }}
+            icon={BulletIcon}
           />
         ))}
       </div>
