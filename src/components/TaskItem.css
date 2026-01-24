@@ -32,3 +32,30 @@
 .task-item {
   line-height: 1.5;
 }
+
+.task-item__input {
+  flex: 1;
+  background: none;
+  border: none;
+  outline: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  min-width: 0;
+  /* Typography: TTN 400/M - Matches TaskText defaults */
+  font-family: "TT Norms Tochka Extended", sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: 0;
+  /* Color: Primitive/Primary On Inverse */
+  color: var(--primitive-primary-on-inverse, #ffffff);
+  cursor: text;
+  word-wrap: break-word;
+}
+
+.task-item__input::placeholder {
+  /* Color: Primitive/Secondary On Inverse */
+  color: var(--primitive-secondary-on-inverse, #aeaeae);
+}

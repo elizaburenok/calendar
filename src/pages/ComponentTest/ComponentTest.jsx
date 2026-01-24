@@ -51,7 +51,8 @@ const ComponentTest = () => {
   useEffect(() => {
     if (notes.length === 0) return
     const lastIndex = notes.length - 1
-    if (notes[lastIndex] === '' && noteRefs.current[lastIndex]) {
+    // Only auto-focus if there is more than one note (user created a new one)
+    if (lastIndex > 0 && notes[lastIndex] === '' && noteRefs.current[lastIndex]) {
       // Small delay to ensure DOM is updated
       setTimeout(() => {
         const noteElement = noteRefs.current[lastIndex]
