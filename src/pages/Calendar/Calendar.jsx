@@ -1,8 +1,37 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import './Calendar.css'
 import '../../tokens/spacings.css'
+import DayAgenda from '../../components/DayAgenda'
+import { getWeekStart, formatDate, getRussianDayName } from '../../utils/dateUtils'
 
 const Calendar = () => {
+  // Generate 6 days starting from Monday of current week
+  const days = useMemo(() => {
+    const weekStart = getWeekStart(new Date())
+    const daysArray = []
+    
+    // Generate 6 days: Monday through Saturday
+    for (let i = 0; i < 6; i++) {
+      const date = new Date(weekStart)
+      date.setDate(weekStart.getDate() + i)
+      
+      // Add some test tasks for the first day to verify TaskItem rendering
+      const testTasks = i === 0 ? [
+        { id: `task-${i}-1`, text: 'Тестовая задача 1', checked: false },
+        { id: `task-${i}-2`, text: 'Тестовая задача 2', checked: true }
+      ] : []
+      
+      daysArray.push({
+        id: `day-${i}`,
+        date: formatDate(date, 'YYYY-MM-DD'),
+        dayOfWeek: getRussianDayName(date),
+        dateObj: date,
+        tasks: testTasks
+      })
+    }
+    
+    return daysArray
+  }, [])
   return (
     <div className="calendar-page">
       <div className="calendar-page__grid">
@@ -26,11 +55,15 @@ const Calendar = () => {
           <div className="calendar-page__calendar">
             <h2>Calendar</h2>
             <div className="calendar-page__days-grid">
-              {/* 6 days in 3x2 grid */}
-              {[1, 2, 3, 4, 5, 6].map((day) => (
-                <div key={day} className="calendar-page__day">
-                  Day {day}
-                </div>
+              {/* 6 days in 3x2 grid, each with DayAgenda */}
+              {days.map((day) => (
+                <DayAgenda
+                  key={day.id}
+                  className="calendar-page__day"
+                  date={day.date}
+                  dayOfWeek={day.dayOfWeek}
+                  tasks={day.tasks}
+                />
               ))}
             </div>
           </div>

@@ -59,13 +59,20 @@ const NoteLink = ({
       e.stopPropagation()
       // Set editing state immediately on mousedown to prevent focus outline flash
       setIsEditing(true)
+      // Call external onClick if provided (for compatibility)
+      if (onClick) {
+        onClick(e)
+      }
     }
   }
 
   const handleClick = (e) => {
-    // Prevent default click behavior
-    e.preventDefault()
-    e.stopPropagation()
+    // If already editing, don't prevent default (let input handle it)
+    if (!isEditing) {
+      // Prevent default click behavior
+      e.preventDefault()
+      e.stopPropagation()
+    }
   }
 
   const handleBlur = () => {
@@ -135,7 +142,7 @@ const NoteLink = ({
     // Allow other key events to propagate
   }
 
-  // Extract onClick from rest to avoid conflicts
+  // Extract onClick from rest to avoid conflicts (we handle it separately)
   const { onClick: restOnClick, ...restProps } = rest
   
   return (

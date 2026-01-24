@@ -60,4 +60,7 @@
   /* Default/Background Colors */
   --primitive-default: #ffffff;
   --primitive-default-fixed: #ffffff;
+
+  /* Semantic Background Colors */
+  --bg-inverse: #191919;
 }
