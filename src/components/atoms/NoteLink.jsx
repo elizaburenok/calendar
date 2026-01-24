@@ -26,12 +26,28 @@ const NoteLink = ({
   autoFocus = false,
   className = '',
   icon,
+  multiline = false,
   ...rest 
 }) => {
   const [isEditing, setIsEditing] = useState(false)
   const [value, setValue] = useState(initialValue)
   const inputRef = useRef(null)
   const hasLocalChangesRef = useRef(false)
+
+  // Auto-resize textarea height
+  const adjustTextareaHeight = () => {
+    if (multiline && inputRef.current) {
+      inputRef.current.style.height = 'auto'
+      inputRef.current.style.height = `${inputRef.current.scrollHeight}px`
+    }
+  }
+
+  // Effect to adjust height on mount and when value changes
+  useEffect(() => {
+    if (isEditing && multiline) {
+      adjustTextareaHeight()
+    }
+  }, [value, isEditing, multiline])
 
   // Only sync initialValue on mount, or when it changes from parent (but not if we have local changes)
   useEffect(() => {
@@ -44,6 +60,9 @@ const NoteLink = ({
   useEffect(() => {
     if (isEditing && inputRef.current) {
       inputRef.current.focus()
+      // Move cursor to end of text
+      const length = inputRef.current.value.length
+      inputRef.current.setSelectionRange(length, length)
     }
   }, [isEditing])
 
@@ -122,6 +141,10 @@ const NoteLink = ({
     }
 
     if (e.key === 'Enter') {
+      if (multiline && e.shiftKey) {
+        // Allow new line with Shift+Enter in multiline mode
+        return
+      }
       // Save the note and create a new one
       e.preventDefault()
       e.stopPropagation()
@@ -176,17 +199,32 @@ const NoteLink = ({
         </div>
       )}
       {isEditing ? (
-        <input
-          ref={inputRef}
-          type="text"
-          className="note-link__input"
-          placeholder="Заметка"
-          value={value}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          onKeyDown={handleInputKeyDown}
-          aria-label="Заметка"
-        />
+        multiline ? (
+          <textarea
+            ref={inputRef}
+            className="note-link__input note-link__textarea"
+            placeholder="Заметка"
+            value={value}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            onKeyDown={handleInputKeyDown}
+            aria-label="Заметка"
+            rows={1}
+            style={{ resize: 'none', overflow: 'hidden' }}
+          />
+        ) : (
+          <input
+            ref={inputRef}
+            type="text"
+            className="note-link__input"
+            placeholder="Заметка"
+            value={value}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            onKeyDown={handleInputKeyDown}
+            aria-label="Заметка"
+          />
+        )
       ) : (
         <span className="note-link__text">
           {value || 'Заметка'}

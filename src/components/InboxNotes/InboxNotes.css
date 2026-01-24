@@ -7,9 +7,9 @@
 }
 
 .inbox-notes__list {
-  /* Show approximately 3 items (3 * 40px = 120px) */
-  /* Increased to ensure 3 items are clearly visible */
-  max-height: 140px;
+  /* Allow list to fill available space and scroll if needed */
+  flex: 1;
+  min-height: 0;
   overflow-y: auto;
   margin-bottom: var(--spacing-2x, 8px);
   
