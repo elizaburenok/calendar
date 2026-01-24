@@ -56,6 +56,7 @@ const InboxNotes = () => {
             onDelete={() => deleteNote(note.id)}
             style={{ width: '100%' }}
             icon={BulletIcon}
+            multiline={true}
           />
         ))}
       </div>
