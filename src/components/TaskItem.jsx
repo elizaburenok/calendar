@@ -14,6 +14,7 @@ import './TaskItem.css'
  * @param {boolean} disabled - Whether the task item is disabled
  * @param {function} onToggle - Callback function called when checkbox is toggled (receives new checked state)
  * @param {function} onEnter - Callback function called when Enter is pressed while editing (receives saved value)
+ * @param {function} onSave - Callback function called when text is changed and blurred/saved (receives saved value)
  * @param {function} onDelete - Callback called when the empty task is deleted via keyboard
  * @param {boolean} autoFocus - If true, automatically enter edit mode when component mounts (for empty tasks)
  * @param {string} id - Optional unique identifier for the task item
@@ -27,6 +28,7 @@ const TaskItem = ({
   disabled = false,
   onToggle,
   onEnter,
+  onSave,
   onDelete,
   autoFocus = false,
   id,
@@ -87,9 +89,14 @@ const TaskItem = ({
     }
     
     setIsEditing(false)
-    // Save on blur if changed? For now just exit edit mode
-    if (onEnter && value !== text) {
+    // Save on blur if changed
+    if (value !== text) {
+      if (onSave) {
+        onSave(value)
+      } else if (onEnter) {
+        // Legacy fallback: call onEnter if onSave is not provided
         onEnter(value)
+      }
     }
   }
 
@@ -129,6 +136,9 @@ const TaskItem = ({
       // Call onEnter callback with the saved value
       if (onEnter) {
         onEnter(savedValue)
+      } else if (onSave) {
+        // Fallback to onSave if onEnter is not provided but user pressed Enter
+        onSave(savedValue)
       }
     } else if (e.key === 'Escape') {
       setIsEditing(false)
@@ -170,6 +180,7 @@ const TaskItem = ({
         <TaskText
           className="task-item__text"
           onClick={handleTextClick}
+          color={value || text ? 'primary' : 'secondary'}
           {...textProps}
         >
           {value || text}
