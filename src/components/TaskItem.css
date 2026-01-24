@@ -26,6 +26,8 @@
   min-width: 0; /* Allow text to shrink and wrap */
   word-wrap: break-word;
   overflow-wrap: break-word;
+  min-height: 1.5em; /* Ensure clickable area even when empty */
+  display: block; /* Ensure min-height works */
 }
 
 /* Ensure proper alignment when text wraps */
