@@ -41,6 +41,7 @@ const TaskItem = ({
   const [value, setValue] = useState(text || '')
   const inputRef = useRef(null)
   const hasLocalChangesRef = useRef(false)
+  const ignoreBlurRef = useRef(false)
 
   // Only sync text prop on mount, or when it changes from parent (but not if we have local changes)
   useEffect(() => {
@@ -61,7 +62,8 @@ const TaskItem = ({
     if (autoFocus && !value && !isEditing) {
       setIsEditing(true)
     }
-  }, [autoFocus, value, isEditing])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [autoFocus, value])
 
   const handleToggle = (newChecked) => {
     if (!disabled && onToggle) {
@@ -78,6 +80,12 @@ const TaskItem = ({
   }
 
   const handleBlur = () => {
+    // If Enter was pressed, we've already saved and handled logic
+    if (ignoreBlurRef.current) {
+      ignoreBlurRef.current = false
+      return
+    }
+    
     setIsEditing(false)
     // Save on blur if changed? For now just exit edit mode
     if (onEnter && value !== text) {
@@ -107,6 +115,10 @@ const TaskItem = ({
       // Save the task and create a new one
       e.preventDefault()
       e.stopPropagation()
+      
+      // Mark that we should ignore the subsequent blur event
+      ignoreBlurRef.current = true
+      
       const savedValue = value.trim()
       // Update the value state with the trimmed value
       setValue(savedValue)
@@ -147,7 +159,7 @@ const TaskItem = ({
           ref={inputRef}
           type="text"
           className="task-item__input"
-          placeholder="New task"
+          placeholder="Новая задача"
           value={value}
           onChange={handleChange}
           onBlur={handleBlur}

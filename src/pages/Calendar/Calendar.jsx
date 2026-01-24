@@ -2,6 +2,7 @@ import React, { useMemo } from 'react'
 import './Calendar.css'
 import '../../tokens/spacings.css'
 import DayAgenda from '../../components/DayAgenda'
+import InboxNotes from '../../components/InboxNotes/InboxNotes'
 import { getWeekStart, formatDate, getRussianDayName } from '../../utils/dateUtils'
 
 const Calendar = () => {
@@ -46,7 +47,7 @@ const Calendar = () => {
           {/* Inbox notes */}
           <div className="calendar-page__inbox-notes">
             <h2>Inbox notes</h2>
-            {/* Notes will go here */}
+            <InboxNotes />
           </div>
         </div>
 
