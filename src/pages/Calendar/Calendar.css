@@ -42,8 +42,8 @@
   flex: 1;
   min-height: 200px;
   padding: var(--spacing-5x);
-  background: white;
-  border: 1px solid #e5e5e5;
+  /* background: white; Removed */
+  /* border: 1px solid #e5e5e5; Removed */
   border-radius: 8px;
   display: flex;
   flex-direction: column;
@@ -53,6 +53,7 @@
   margin: 0 0 var(--spacing-5x) 0;
   font-size: 1.25rem;
   font-weight: 600;
+  color: var(--primitive-primary-on-inverse, #ffffff);
 }
 
 /* Second main div - 9 columns */
