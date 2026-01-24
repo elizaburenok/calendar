@@ -174,7 +174,26 @@ const DayAgenda = ({
     }
   }
 
-  const [localTasks, setLocalTasks] = useState(tasks.length > 0 ? tasks : [])
+  const [localTasks, setLocalTasks] = useState(() => {
+    // Start with provided tasks
+    const initialTasks = tasks.length > 0 ? [...tasks] : []
+    
+    // Always append 2 empty placeholder tasks
+    const emptyTasks = [
+      {
+        id: `task-empty-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+        text: '',
+        checked: false
+      },
+      {
+        id: `task-empty-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+        text: '',
+        checked: false
+      }
+    ]
+    
+    return [...initialTasks, ...emptyTasks]
+  })
   const taskRefs = useRef([])
   const [focusTaskIndex, setFocusTaskIndex] = useState(null)
 
@@ -229,6 +248,8 @@ const DayAgenda = ({
     }
 
     // Auto-focus the last empty task (assuming new task)
+    // Disabled to prevent auto-focusing on initial render with placeholder tasks
+    /*
     const lastIndex = localTasks.length - 1
     if (localTasks[lastIndex] && !localTasks[lastIndex].text && lastIndex >= 0) {
       setTimeout(() => {
@@ -236,7 +257,19 @@ const DayAgenda = ({
         focusOrEnterEditTask(taskElement)
       }, 0)
     }
+    */
   }, [localTasks, focusTaskIndex])
+
+  const handleTaskUpdate = (savedValue, taskIndex) => {
+    setLocalTasks((prevTasks) => {
+      const newTasks = [...prevTasks]
+      // Update the current task with saved value
+      if (newTasks[taskIndex]) {
+        newTasks[taskIndex] = { ...newTasks[taskIndex], text: savedValue }
+      }
+      return newTasks
+    })
+  }
 
   const handleTaskEnter = (savedValue, taskIndex) => {
     setLocalTasks((prevTasks) => {
@@ -246,14 +279,21 @@ const DayAgenda = ({
         newTasks[taskIndex] = { ...newTasks[taskIndex], text: savedValue }
       }
       
-      // Always add a new empty task at the end when Enter is pressed
-      newTasks.push({
+      // Create new task
+      const newTask = {
         id: `task-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
         text: '',
         checked: false
-      })
+      }
+
+      // Insert new task immediately after the current one
+      newTasks.splice(taskIndex + 1, 0, newTask)
+      
       return newTasks
     })
+
+    // Focus the newly created task
+    setFocusTaskIndex(taskIndex + 1)
   }
 
   const handleTaskDelete = (taskIndex) => {
@@ -328,9 +368,10 @@ const DayAgenda = ({
               checked={task.checked || false}
               disabled={task.disabled || false}
               onToggle={(newChecked) => handleLocalTaskToggle(task.id, newChecked)}
+              onSave={(savedValue) => handleTaskUpdate(savedValue, index)}
               onEnter={(savedValue) => handleTaskEnter(savedValue, index)}
               onDelete={() => handleTaskDelete(index)}
-              autoFocus={!task.text && index === localTasks.length - 1}
+              autoFocus={false}
             />
           </div>
         ))}

@@ -51,7 +51,8 @@ const NoteLink = ({
     if (autoFocus && !value && !isEditing) {
       setIsEditing(true)
     }
-  }, [autoFocus, value, isEditing])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [autoFocus])
 
   const handleMouseDown = (e) => {
     if (!isEditing) {
