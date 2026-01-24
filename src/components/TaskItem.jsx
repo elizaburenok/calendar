@@ -89,14 +89,22 @@ const TaskItem = ({
     }
     
     setIsEditing(false)
-    // Save on blur if changed
-    if (value !== text) {
+    
+    const savedValue = value.trim()
+    
+    // Save on blur if changed (compare with current prop text)
+    if (savedValue !== (text || '')) {
       if (onSave) {
-        onSave(value)
+        onSave(savedValue)
       } else if (onEnter) {
         // Legacy fallback: call onEnter if onSave is not provided
-        onEnter(value)
+        onEnter(savedValue)
       }
+    }
+    
+    // Also update local value to trimmed version to match onEnter behavior
+    if (value !== savedValue) {
+      setValue(savedValue)
     }
   }
 
