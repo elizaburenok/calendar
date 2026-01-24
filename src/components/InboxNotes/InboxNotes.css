@@ -42,21 +42,6 @@
   border-top: 1px solid var(--primitive-neutral-1);
 }
 
-/* Color Overrides for Light Background */
 .inbox-notes .note-link {
-  color: var(--primitive-secondary, #676767);
-  width: 100%; /* Ensure full width */
-}
-
-.inbox-notes .note-link--has-value .note-link__text,
-.inbox-notes .note-link__input {
-  color: var(--primitive-primary, #191919);
-}
-
-.inbox-notes .note-link__input::placeholder {
-  color: var(--primitive-secondary, #676767);
-}
-
-.inbox-notes .note-link:focus-visible:not(.note-link--editing) {
-  outline-color: var(--primitive-primary, #191919);
+  width: 100%;
 }

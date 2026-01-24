@@ -46,7 +46,7 @@ const Calendar = () => {
 
           {/* Inbox notes */}
           <div className="calendar-page__inbox-notes">
-            <h2>Inbox notes</h2>
+            <h2>Заметки</h2>
             <InboxNotes />
           </div>
         </div>
