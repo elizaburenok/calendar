@@ -111,6 +111,29 @@ const DayAgenda = ({
         const noteElement = noteRefs.current[lastIndex]
         focusOrEnterEdit(noteElement)
       }, 0)
+    } else if (notes.length === 1 && notes[0] === '') {
+      // Only one note (in DayHeader) and it's empty
+      setTimeout(() => {
+        const headerNoteLink = document.querySelector('.day-agenda__header .note-link')
+        if (headerNoteLink) {
+          const input = headerNoteLink.querySelector('input')
+          if (input) {
+            input.focus()
+          } else {
+            const mouseDownEvent = new MouseEvent('mousedown', {
+              bubbles: true,
+              cancelable: true
+            })
+            headerNoteLink.dispatchEvent(mouseDownEvent)
+            setTimeout(() => {
+              const newInput = headerNoteLink.querySelector('input')
+              if (newInput) {
+                newInput.focus()
+              }
+            }, 0)
+          }
+        }
+      }, 0)
     }
   }, [notes, focusNoteIndex])
 

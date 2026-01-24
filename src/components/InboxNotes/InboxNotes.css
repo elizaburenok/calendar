@@ -1,0 +1,62 @@
+.inbox-notes {
+  display: flex;
+  flex-direction: column;
+  flex: 1; /* Fill remaining space in parent */
+  /* Ensure it doesn't overflow the parent if parent has fixed height */
+  overflow: hidden;
+}
+
+.inbox-notes__list {
+  /* Show approximately 3 items (3 * 40px = 120px) */
+  /* If we want to strictly show 3 and scroll others, we can use max-height or height */
+  /* If flex: 1 is used, it fills available space. But the design requirement is specific. */
+  /* Let's try max-height to ensure "hide by scroll" kicks in after 3 items if space allows more, 
+     or just let it fill if the container is small?
+     "Show only three last created notes and other hide by scroll" implies visual limitation.
+  */
+  max-height: 120px;
+  overflow-y: auto;
+  margin-bottom: var(--spacing-2x, 8px);
+  
+  /* Scrollbar styling for webkit */
+  scrollbar-width: thin;
+  scrollbar-color: var(--primitive-neutral-2) transparent;
+}
+
+.inbox-notes__list::-webkit-scrollbar {
+  width: 4px;
+}
+
+.inbox-notes__list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.inbox-notes__list::-webkit-scrollbar-thumb {
+  background-color: var(--primitive-neutral-2);
+  border-radius: 4px;
+}
+
+.inbox-notes__input-wrapper {
+  margin-top: auto;
+  padding-top: var(--spacing-2x, 8px);
+  border-top: 1px solid var(--primitive-neutral-1);
+}
+
+/* Color Overrides for Light Background */
+.inbox-notes .note-link {
+  color: var(--primitive-secondary, #676767);
+  width: 100%; /* Ensure full width */
+}
+
+.inbox-notes .note-link--has-value .note-link__text,
+.inbox-notes .note-link__input {
+  color: var(--primitive-primary, #191919);
+}
+
+.inbox-notes .note-link__input::placeholder {
+  color: var(--primitive-secondary, #676767);
+}
+
+.inbox-notes .note-link:focus-visible:not(.note-link--editing) {
+  outline-color: var(--primitive-primary, #191919);
+}
