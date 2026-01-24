@@ -60,9 +60,7 @@
 
 .calendar-page__calendar {
   width: 100%;
-  padding: var(--spacing-5x);
   background-color: var(--bg-inverse, #191919);
-  border: 1px solid #e5e5e5;
   border-radius: 8px;
 }
 
@@ -82,7 +80,5 @@
 .calendar-page__day {
   min-height: 200px;
   padding: var(--spacing-5x);
-  background: #f9fafb;
-  border: 1px solid #e5e5e5;
   border-radius: 8px;
 }

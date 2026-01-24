@@ -53,7 +53,6 @@ const Calendar = () => {
         {/* Second main div - 9 columns */}
         <div className="calendar-page__right-section">
           <div className="calendar-page__calendar">
-            <h2>Calendar</h2>
             <div className="calendar-page__days-grid">
               {/* 6 days in 3x2 grid, each with DayAgenda */}
               {days.map((day) => (

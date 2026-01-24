@@ -60,7 +60,7 @@ const NoteLink = ({
       // Set editing state immediately on mousedown to prevent focus outline flash
       setIsEditing(true)
       // Call external onClick if provided (for compatibility)
-      if (onClick) {
+      if (onClick && e.isTrusted) {
         onClick(e)
       }
     }

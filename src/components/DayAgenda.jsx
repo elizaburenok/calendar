@@ -111,29 +111,6 @@ const DayAgenda = ({
         const noteElement = noteRefs.current[lastIndex]
         focusOrEnterEdit(noteElement)
       }, 0)
-    } else if (notes.length === 1 && notes[0] === '') {
-      // Only one note (in DayHeader) and it's empty
-      setTimeout(() => {
-        const headerNoteLink = document.querySelector('.day-agenda__header .note-link')
-        if (headerNoteLink) {
-          const input = headerNoteLink.querySelector('input')
-          if (input) {
-            input.focus()
-          } else {
-            const mouseDownEvent = new MouseEvent('mousedown', {
-              bubbles: true,
-              cancelable: true
-            })
-            headerNoteLink.dispatchEvent(mouseDownEvent)
-            setTimeout(() => {
-              const newInput = headerNoteLink.querySelector('input')
-              if (newInput) {
-                newInput.focus()
-              }
-            }, 0)
-          }
-        }
-      }, 0)
     }
   }, [notes, focusNoteIndex])
 
@@ -174,7 +151,104 @@ const DayAgenda = ({
     }
   }
 
-  const handleTaskToggle = (taskId, newChecked) => {
+  const [localTasks, setLocalTasks] = useState(tasks.length > 0 ? tasks : [])
+  const taskRefs = useRef([])
+  const [focusTaskIndex, setFocusTaskIndex] = useState(null)
+
+  // Sync tasks from props if they change and we haven't initialized local state properly
+  useEffect(() => {
+    if (tasks.length > 0 && localTasks.length === 0) {
+      setLocalTasks(tasks)
+    }
+  }, [tasks])
+
+  // Helper: focus existing input or enter edit mode on TaskItem
+  const focusOrEnterEditTask = (taskElement) => {
+    if (!taskElement) return
+
+    const existingInput = taskElement.querySelector('input[type="text"]')
+    if (existingInput) {
+      existingInput.focus()
+      return
+    }
+
+    const taskTextElement = taskElement.querySelector('.task-item__text')
+    if (taskTextElement) {
+      const clickEvent = new MouseEvent('click', {
+        bubbles: true,
+        cancelable: true
+      })
+      taskTextElement.dispatchEvent(clickEvent)
+
+      // After TaskItem enters edit mode, focus the newly created input
+      setTimeout(() => {
+        const newInput = taskElement.querySelector('input[type="text"]')
+        if (newInput) {
+          newInput.focus()
+        }
+      }, 0)
+    }
+  }
+
+  // Manage focus behaviour for tasks
+  useEffect(() => {
+    if (localTasks.length === 0) return
+
+    if (focusTaskIndex !== null) {
+      const targetIndex = Math.max(0, Math.min(focusTaskIndex, localTasks.length - 1))
+      setTimeout(() => {
+        const taskElement = taskRefs.current[targetIndex]
+        focusOrEnterEditTask(taskElement)
+      }, 0)
+      
+      setFocusTaskIndex(null)
+      return
+    }
+
+    // Auto-focus the last empty task (assuming new task)
+    const lastIndex = localTasks.length - 1
+    if (localTasks[lastIndex] && !localTasks[lastIndex].text && lastIndex >= 0) {
+      setTimeout(() => {
+        const taskElement = taskRefs.current[lastIndex]
+        focusOrEnterEditTask(taskElement)
+      }, 0)
+    }
+  }, [localTasks, focusTaskIndex])
+
+  const handleTaskEnter = (savedValue, taskIndex) => {
+    setLocalTasks((prevTasks) => {
+      const newTasks = [...prevTasks]
+      // Update the current task with saved value
+      if (newTasks[taskIndex]) {
+        newTasks[taskIndex] = { ...newTasks[taskIndex], text: savedValue }
+      }
+      
+      // Always add a new empty task at the end when Enter is pressed
+      newTasks.push({
+        id: `task-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+        text: '',
+        checked: false
+      })
+      return newTasks
+    })
+  }
+
+  const handleTaskDelete = (taskIndex) => {
+    setLocalTasks((prevTasks) => {
+      const newTasks = prevTasks.filter((_, index) => index !== taskIndex)
+      return newTasks
+    })
+
+    setFocusTaskIndex(Math.max(taskIndex - 1, 0))
+  }
+
+  const handleLocalTaskToggle = (taskId, newChecked) => {
+    setLocalTasks((prevTasks) => 
+      prevTasks.map(task => 
+        task.id === taskId ? { ...task, checked: newChecked } : task
+      )
+    )
+    
     if (onTaskToggle) {
       onTaskToggle(taskId, newChecked)
     }
@@ -192,7 +266,7 @@ const DayAgenda = ({
         noteValue={notes.length > 0 ? notes[0] : ''}
         onNoteEnter={notes.length > 0 ? handleFirstNoteEnter : undefined}
         onNoteDelete={notes.length > 0 ? handleFirstNoteDelete : undefined}
-        noteAutoFocus={notes.length > 0 && notes[0] === '' && notes.length === 1 && focusNoteIndex === null}
+        noteAutoFocus={false}
         className="day-agenda__header"
       />
 
@@ -218,21 +292,26 @@ const DayAgenda = ({
         </div>
       )}
       
-      {tasks.length > 0 && (
-        <div className="day-agenda__tasks-list">
-          {tasks.map((task) => (
+      <div className="day-agenda__tasks-list">
+        {localTasks.map((task, index) => (
+          <div 
+            key={task.id}
+            ref={(el) => { taskRefs.current[index] = el }}
+            className="day-agenda__task-item"
+          >
             <TaskItem
-              key={task.id}
               id={task.id}
               text={task.text}
               checked={task.checked || false}
               disabled={task.disabled || false}
-              onToggle={(newChecked) => handleTaskToggle(task.id, newChecked)}
-              className="day-agenda__task-item"
+              onToggle={(newChecked) => handleLocalTaskToggle(task.id, newChecked)}
+              onEnter={(savedValue) => handleTaskEnter(savedValue, index)}
+              onDelete={() => handleTaskDelete(index)}
+              autoFocus={!task.text && index === localTasks.length - 1}
             />
-          ))}
-        </div>
-      )}
+          </div>
+        ))}
+      </div>
     </div>
   )
 }
