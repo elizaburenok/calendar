@@ -56,6 +56,9 @@ const TaskItem = ({
   useEffect(() => {
     if (isEditing && inputRef.current) {
       inputRef.current.focus()
+      // Move cursor to end of text
+      const length = inputRef.current.value.length
+      inputRef.current.setSelectionRange(length, length)
     }
   }, [isEditing])
 

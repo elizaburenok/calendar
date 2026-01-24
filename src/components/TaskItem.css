@@ -57,6 +57,11 @@
   word-wrap: break-word;
 }
 
+.task-item__input:focus {
+  /* Ensure color stays primary on focus */
+  color: var(--primitive-primary-on-inverse, #ffffff);
+}
+
 .task-item__input::placeholder {
   /* Color: Primitive/Secondary On Inverse */
   color: var(--primitive-secondary-on-inverse, #aeaeae);

@@ -86,7 +86,30 @@
   white-space: nowrap;
 }
 
+.note-link__input:focus {
+  /* Ensure color stays primary on focus */
+  color: var(--primitive-primary-on-inverse, #ffffff);
+}
+
 .note-link__input::placeholder {
   /* Color: Primitive/Secondary On Inverse */
   color: var(--primitive-secondary-on-inverse, #aeaeae);
+}
+
+.note-link__textarea {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  resize: none;
+  overflow: hidden;
+  /* Match input typography exactly */
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  letter-spacing: inherit;
+  /* Removed color: inherit to allow input color to apply */
+  
+  /* Reset textarea specifics */
+  display: block;
+  box-sizing: border-box;
 }
