@@ -25,6 +25,7 @@ const NoteLink = ({
   initialValue = '',
   autoFocus = false,
   className = '',
+  icon,
   ...rest 
 }) => {
   const [isEditing, setIsEditing] = useState(false)
@@ -157,19 +158,23 @@ const NoteLink = ({
       aria-label="Заметка"
       {...restProps}
     >
-      <div 
-        className="note-link__icon-wrapper"
-        style={{ padding: 'var(--Spacing-1x, 4px) var(--Spacing-2x, 8px) 0 0' }}
-      >
-        <img 
-          className="note-link__icon" 
-          src={penIcon}
-          width="16"
-          height="16"
-          alt=""
-          aria-hidden="true"
-        />
-      </div>
+      {icon ? (
+        icon
+      ) : (
+        <div 
+          className="note-link__icon-wrapper"
+          style={{ padding: 'var(--Spacing-1x, 4px) var(--Spacing-2x, 8px) 0 0' }}
+        >
+          <img 
+            className="note-link__icon" 
+            src={penIcon}
+            width="16"
+            height="16"
+            alt=""
+            aria-hidden="true"
+          />
+        </div>
+      )}
       {isEditing ? (
         <input
           ref={inputRef}
