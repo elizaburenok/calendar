@@ -1,0 +1,33 @@
+/* Single time slot row (time label + line), clickable. Height from parent --day-planner-slot-height */
+.slot-row {
+  flex: 0 0 var(--day-planner-slot-height, 45px);
+  min-height: var(--day-planner-slot-height, 45px);
+  display: flex;
+  align-items: center;
+  padding: 0 var(--spacing-3x);
+  background: var(--primitive-default, #fff);
+  border: none;
+  border-bottom: 1px solid var(--primitive-neutral-1, #e1e1e1);
+  cursor: pointer;
+  font: inherit;
+  color: var(--primitive-primary, #191919);
+  text-align: left;
+  width: 100%;
+}
+
+.slot-row:last-child {
+  border-bottom: none;
+}
+
+.slot-row:hover {
+  background: var(--primitive-neutral-1, #e1e1e1);
+}
+
+.slot-row--current {
+  background: var(--primitive-brand, #835de1);
+  color: var(--primitive-primary-on-inverse, #fff);
+}
+
+.slot-row--current:hover {
+  background: var(--primitive-brand-on-inverse, #9b7ef1);
+}

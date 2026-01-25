@@ -1,0 +1,22 @@
+/* Reuse design of .calendar-page__inbox-notes-header (same layout and styling) */
+.planner-header {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-2x);
+  margin-bottom: var(--spacing-5x);
+}
+
+.planner-header__icon {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  display: block;
+  vertical-align: middle;
+  object-fit: contain;
+}
+
+.planner-header__title {
+  margin: 0;
+  line-height: 1;
+  color: var(--primitive-primary-on-inverse, #ffffff);
+}
