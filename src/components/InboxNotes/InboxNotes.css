@@ -1,15 +1,16 @@
 .inbox-notes {
   display: flex;
   flex-direction: column;
-  flex: 1; /* Fill remaining space in parent */
+  flex: 0 0 auto;
   /* Ensure it doesn't overflow the parent if parent has fixed height */
   overflow: hidden;
 }
 
 .inbox-notes__list {
   /* Allow list to fill available space and scroll if needed */
-  flex: 1;
+  flex: 0 0 auto;
   min-height: 0;
+  max-height: 120px; /* Limit height to show roughly 3 notes */
   overflow-y: auto;
   margin-bottom: var(--spacing-2x, 8px);
   
