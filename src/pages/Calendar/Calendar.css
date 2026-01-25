@@ -46,16 +46,31 @@
   /* min-height: 400px; Reduced to avoid forcing large height */
   min-height: 0; /* Allow shrinking/flexing */
   padding: var(--spacing-5x);
-  /* background: white; Removed */
-  /* border: 1px solid #e5e5e5; Removed */
+  background-color: #1C1C1C;
   border-radius: 8px;
+  border: 1px solid #242424;
+  box-shadow: 0 1px 13px 0 rgba(208, 208, 208, 0.03) inset;
   display: flex;
   flex-direction: column;
   overflow: hidden; /* Prevent growing beyond flex size */
 }
 
-.calendar-page__inbox-notes h2 {
-  margin: 0 0 var(--spacing-5x) 0;
+.calendar-page__inbox-notes-header {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2x);
+  margin-bottom: var(--spacing-5x);
+}
+
+.calendar-page__inbox-notes-icon {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  display: block;
+}
+
+.calendar-page__inbox-notes-header h2 {
+  margin: 0;
   font-size: 1.25rem;
   font-weight: 600;
   color: var(--primitive-primary-on-inverse, #ffffff);

@@ -4,6 +4,7 @@ import '../../tokens/spacings.css'
 import DayAgenda from '../../components/DayAgenda'
 import InboxNotes from '../../components/InboxNotes/InboxNotes'
 import { getWeekStart, formatDate, getRussianDayName } from '../../utils/dateUtils'
+import postBoxIcon from '../../icons/Stroked 2px/Post Box.svg'
 
 const Calendar = () => {
   // Generate 6 days starting from Monday of current week
@@ -46,7 +47,16 @@ const Calendar = () => {
 
           {/* Inbox notes */}
           <div className="calendar-page__inbox-notes">
-            <h2>Заметки</h2>
+            <div className="calendar-page__inbox-notes-header">
+              <img
+                src={postBoxIcon}
+                alt=""
+                className="calendar-page__inbox-notes-icon"
+                width={24}
+                height={24}
+              />
+              <h2>Заметки</h2>
+            </div>
             <InboxNotes />
           </div>
         </div>
