@@ -11,7 +11,7 @@ import {
 import { PLANNER_EVENTS_KEY, createPlannerEvent } from './plannerUtils'
 import SlotList, { SLOT_HEIGHT_PX } from './SlotList'
 import EventConstructor from './EventConstructor'
-import EventBlock from './EventBlock'
+import EventBlock from '../atoms/EventBlock'
 import PlannerHeader from '../atoms/PlannerHeader'
 import calendarCheckIcon from '../../icons/Stroked 2px/Calendar Check.svg'
 import './DayPlanner.css'

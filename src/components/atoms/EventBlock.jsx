@@ -4,7 +4,7 @@ import {
   PLANNER_END_MINUTES,
   PLANNER_SLOT_DURATION_MINUTES,
 } from '../../utils/dateUtils'
-import './DayPlanner.css'
+import './EventBlock.css'
 
 const TOTAL_PLANNER_MINUTES = PLANNER_END_MINUTES - PLANNER_START_MINUTES
 
@@ -28,8 +28,14 @@ function clampAndSnapStart(startMinutes, durationMinutes) {
 }
 
 /**
- * Single event block. Positioned by top/height. Delete via keyboard; resize via bottom-edge drag; move via body drag.
- * Move uses a pixel-offset transform during drag for smooth tracking; snap-to-grid runs only on release with a short animation.
+ * EventBlock – single event card on the planner timeline.
+ * Positioned by top/height. Delete via keyboard; resize via bottom-edge drag; move via body drag.
+ *
+ * @param {object} event - { id, title, startMinutes, durationMinutes }
+ * @param {number} totalHeightPx - Height of the events lane (for positioning)
+ * @param {function} onDelete - (id) => void
+ * @param {function} onResize - (id, newDurationMinutes) => void
+ * @param {function} onMove - (id, newStartMinutes) => void
  */
 function EventBlock({ event, totalHeightPx, onDelete, onResize, onMove }) {
   const { id, title, startMinutes, durationMinutes } = event
@@ -74,7 +80,7 @@ function EventBlock({ event, totalHeightPx, onDelete, onResize, onMove }) {
 
   const handleMoveMouseDown = useCallback(
     (e) => {
-      if (e.target.closest('.day-planner__event-block-resize-handle')) return
+      if (e.target.closest('.event-block__resize-handle')) return
       e.preventDefault()
       moveStartY.current = e.clientY
       setDragOffsetPx(0)
@@ -86,7 +92,7 @@ function EventBlock({ event, totalHeightPx, onDelete, onResize, onMove }) {
 
   useEffect(() => {
     if (!isResizing) return
-    const onMove = (e) => {
+    const onMoveResize = (e) => {
       const dy = e.clientY - dragStartY.current
       const slotHeightPx = totalHeightPx / 8
       const deltaSlots = dy / slotHeightPx
@@ -102,10 +108,10 @@ function EventBlock({ event, totalHeightPx, onDelete, onResize, onMove }) {
       setDragDuration(null)
       lastResizeDuration.current = null
     }
-    window.addEventListener('mousemove', onMove)
+    window.addEventListener('mousemove', onMoveResize)
     window.addEventListener('mouseup', onUp)
     return () => {
-      window.removeEventListener('mousemove', onMove)
+      window.removeEventListener('mousemove', onMoveResize)
       window.removeEventListener('mouseup', onUp)
     }
   }, [isResizing, id, durationMinutes, onResize, totalHeightPx])
@@ -147,7 +153,6 @@ function EventBlock({ event, totalHeightPx, onDelete, onResize, onMove }) {
     }
   }, [isMoving, id, startMinutes, duration, onMove, totalHeightPx])
 
-  // When settling, animate drag offset to 0 so the block glides to the snapped position
   useEffect(() => {
     if (!isSettling) return
     const frame = requestAnimationFrame(() => {
@@ -168,7 +173,7 @@ function EventBlock({ event, totalHeightPx, onDelete, onResize, onMove }) {
   return (
     <div
       ref={blockRef}
-      className={`day-planner__event-block ${isMoving ? 'day-planner__event-block--moving' : ''} ${isSettling ? 'day-planner__event-block--settling' : ''}`}
+      className={`event-block ${isMoving ? 'event-block--moving' : ''} ${isSettling ? 'event-block--settling' : ''}`}
       style={{
         top: `${topPercent}%`,
         height: `${heightPercent}%`,
@@ -181,12 +186,12 @@ function EventBlock({ event, totalHeightPx, onDelete, onResize, onMove }) {
       role="button"
       aria-label={`${title}, ${formatTimeRange(startMinutes, duration)}. Press Delete to remove. Drag to move, drag bottom edge to resize.`}
     >
-      <span className="day-planner__event-block-title">{title || 'Event'}</span>
-      <span className="day-planner__event-block-time">
+      <span className="event-block__title">{title || 'Event'}</span>
+      <span className="event-block__time">
         {formatTimeRange(startMinutes, duration)}
       </span>
       <span
-        className="day-planner__event-block-resize-handle"
+        className="event-block__resize-handle"
         onMouseDown={handleResizeMouseDown}
         aria-hidden
       />
