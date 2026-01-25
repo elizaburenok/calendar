@@ -3,6 +3,7 @@ import './Calendar.css'
 import '../../tokens/spacings.css'
 import '../../tokens/typography.css'
 import DayAgenda from '../../components/DayAgenda'
+import DayPlanner from '../../components/DayPlanner'
 import InboxNotes from '../../components/InboxNotes/InboxNotes'
 import { getWeekStart, formatDate, getRussianDayName } from '../../utils/dateUtils'
 import postBoxIcon from '../../icons/Stroked 2px/Post Box.svg'
@@ -42,8 +43,7 @@ const Calendar = () => {
         <div className="calendar-page__left-section">
           {/* Active Plan Day */}
           <div className="calendar-page__active-plan-day">
-            <h2 className="text-ttn-600-l">Active Plan Day</h2>
-            {/* Plans will go here */}
+            <DayPlanner />
           </div>
 
           {/* Inbox notes */}

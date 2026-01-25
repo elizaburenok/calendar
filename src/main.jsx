@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
 import './fonts/fonts.css'
 import './tokens/colors.css'
+import './tokens/roundings.css'
+import './tokens/spacings.css'
 import './index.css'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
