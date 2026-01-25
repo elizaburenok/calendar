@@ -3,7 +3,14 @@ import NoteLink from '../atoms/NoteLink'
 import './InboxNotes.css'
 
 const BulletIcon = (
-  <div style={{ padding: '8px 6px 8px 0', display: 'flex', alignItems: 'center' }}>
+  <div style={{
+    width: '24px',
+    height: '22px',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexShrink: 0
+  }}>
     <svg xmlns="http://www.w3.org/2000/svg" width="6" height="6" viewBox="0 0 6 6" fill="none">
       <circle cx="3" cy="3" r="3" fill="#525252"/>
     </svg>
