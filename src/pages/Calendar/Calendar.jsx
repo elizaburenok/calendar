@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react'
 import './Calendar.css'
 import '../../tokens/spacings.css'
+import '../../tokens/typography.css'
 import DayAgenda from '../../components/DayAgenda'
 import InboxNotes from '../../components/InboxNotes/InboxNotes'
 import { getWeekStart, formatDate, getRussianDayName } from '../../utils/dateUtils'
@@ -41,7 +42,7 @@ const Calendar = () => {
         <div className="calendar-page__left-section">
           {/* Active Plan Day */}
           <div className="calendar-page__active-plan-day">
-            <h2>Active Plan Day</h2>
+            <h2 className="text-ttn-600-l">Active Plan Day</h2>
             {/* Plans will go here */}
           </div>
 
@@ -55,7 +56,7 @@ const Calendar = () => {
                 width={24}
                 height={24}
               />
-              <h2>Заметки</h2>
+              <h2 className="text-ttn-600-l">Заметки</h2>
             </div>
             <InboxNotes />
           </div>

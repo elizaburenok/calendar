@@ -36,8 +36,6 @@
 
 .calendar-page__active-plan-day h2 {
   margin: 0 0 var(--spacing-5x) 0;
-  font-size: 1.25rem;
-  font-weight: 600;
 }
 
 /* Inbox notes block */
@@ -71,8 +69,6 @@
 
 .calendar-page__inbox-notes-header h2 {
   margin: 0;
-  font-size: 1.25rem;
-  font-weight: 600;
   color: var(--primitive-primary-on-inverse, #ffffff);
 }
 
