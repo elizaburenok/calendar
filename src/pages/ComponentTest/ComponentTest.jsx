@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { Checkbox, DateText, DayOfWeekText, NoteLink, PlannerHeader, SlotRow, TaskText, TimeLabel } from '../../components/atoms'
+import { Checkbox, DateText, DayOfWeekText, EventBlock, NoteLink, PlannerHeader, SlotRow, TaskText, TimeLabel } from '../../components/atoms'
 import { DayAgenda, DayHeader, TaskItem } from '../../components'
 import './ComponentTest.css'
 import '../../tokens/colors.css'
@@ -281,6 +281,42 @@ const ComponentTest = () => {
               </div>
               <div className="component-test-code">
                 SlotRow with label, isCurrent on middle row
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="component-test-section">
+          <h2>EventBlock</h2>
+          <div className="component-test-grid">
+            <div className="component-test-item">
+              <div className="component-test-label">Event card (20:00–21:00)</div>
+              <div
+                className="component-test-preview"
+                style={{
+                  position: 'relative',
+                  width: '280px',
+                  height: '360px',
+                  border: '1px solid var(--primitive-neutral-1)',
+                  borderRadius: '8px',
+                  overflow: 'hidden',
+                }}
+              >
+                <EventBlock
+                  event={{
+                    id: 'test-event-1',
+                    title: 'Sample event',
+                    startMinutes: 20 * 60,
+                    durationMinutes: 60,
+                  }}
+                  totalHeightPx={360}
+                  onDelete={() => {}}
+                  onResize={() => {}}
+                  onMove={() => {}}
+                />
+              </div>
+              <div className="component-test-code">
+                EventBlock with title, time range; Delete / drag / resize
               </div>
             </div>
           </div>

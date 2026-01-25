@@ -148,7 +148,7 @@
   color: var(--primitive-secondary, #676767);
 }
 
-/* Right: events lane (absolute-positioned blocks) */
+/* Right: events lane (absolute-positioned EventBlock atoms) */
 .day-planner__events-lane {
   position: relative;
   flex: 1 1 auto;
@@ -156,71 +156,4 @@
   border: 1px solid var(--primitive-neutral-1, #e1e1e1);
   border-radius: var(--rounding-2x);
   background: var(--primitive-default, #fff);
-}
-
-.day-planner__event-block {
-  position: absolute;
-  left: var(--spacing-2x);
-  right: var(--spacing-2x);
-  box-sizing: border-box;
-  padding: var(--spacing-2x) var(--spacing-3x);
-  background: var(--primitive-brand, #835de1);
-  color: var(--primitive-primary-on-inverse, #fff);
-  border-radius: var(--rounding-1x);
-  overflow: hidden;
-  cursor: grab;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  min-height: 0;
-}
-
-.day-planner__event-block:active {
-  cursor: grabbing;
-}
-
-/* Smooth capture: no transition during drag so movement tracks pointer 1:1 */
-.day-planner__event-block--moving {
-  cursor: grabbing;
-  opacity: 0.95;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  will-change: transform;
-  user-select: none;
-}
-
-/* Snap-to-grid animation on release: only transform is transitioned */
-.day-planner__event-block--settling {
-  transition: transform 0.2s ease-out;
-}
-
-.day-planner__event-block:focus {
-  outline: 2px solid var(--primitive-primary, #191919);
-  outline-offset: 2px;
-}
-
-.day-planner__event-block-title {
-  font-size: 14px;
-  font-weight: 600;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.day-planner__event-block-time {
-  font-size: 12px;
-  opacity: 0.9;
-}
-
-.day-planner__event-block-resize-handle {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 8px;
-  cursor: ns-resize;
-  flex-shrink: 0;
-}
-
-.day-planner__event-block-resize-handle:hover {
-  background: rgba(0, 0, 0, 0.1);
 }
