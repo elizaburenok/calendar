@@ -100,3 +100,68 @@ export const getRussianDayName = (date) => {
   ]
   return dayNames[date.getDay()]
 }
+
+/* ----- Day planner (8pm–12am local time) ----- */
+
+/** Planner day range: 20:00 to 24:00 (midnight), 30-min slots */
+export const PLANNER_START_MINUTES = 20 * 60   // 20:00
+export const PLANNER_END_MINUTES = 24 * 60     // 24:00
+export const PLANNER_SLOT_DURATION_MINUTES = 30
+export const PLANNER_SLOTS_COUNT = (PLANNER_END_MINUTES - PLANNER_START_MINUTES) / PLANNER_SLOT_DURATION_MINUTES  // 8
+
+/**
+ * Get today's date key (YYYY-MM-DD) in local time
+ * @returns {string}
+ */
+export const getTodayDateKey = () => formatDate(new Date(), 'YYYY-MM-DD')
+
+/**
+ * Get the 0-based slot index for a given time (local date).
+ * Planner slots: 20:00 = 0, 20:30 = 1, ... 23:30 = 7.
+ * @param {Date} date - Local date
+ * @returns {number} Slot index 0..PLANNER_SLOTS_COUNT-1, or -1 if outside range
+ */
+export const getPlannerSlotIndexFromDate = (date) => {
+  const minutes = date.getHours() * 60 + date.getMinutes()
+  if (minutes < PLANNER_START_MINUTES || minutes >= PLANNER_END_MINUTES) return -1
+  return Math.floor((minutes - PLANNER_START_MINUTES) / PLANNER_SLOT_DURATION_MINUTES)
+}
+
+/**
+ * Get the current planner slot index (for scroll-to-now). If before 20:00 returns 0; if after 24:00 returns last slot.
+ * @returns {number} Slot index 0..PLANNER_SLOTS_COUNT-1
+ */
+export const getCurrentPlannerSlotIndex = () => {
+  const now = new Date()
+  const minutes = now.getHours() * 60 + now.getMinutes()
+  if (minutes < PLANNER_START_MINUTES) return 0
+  if (minutes >= PLANNER_END_MINUTES) return PLANNER_SLOTS_COUNT - 1
+  return Math.floor((minutes - PLANNER_START_MINUTES) / PLANNER_SLOT_DURATION_MINUTES)
+}
+
+/**
+ * Get time label for a slot index (e.g. 0 -> "20:00", 1 -> "20:30")
+ * @param {number} slotIndex - 0-based slot index
+ * @returns {string} "HH:mm"
+ */
+export const getPlannerSlotLabel = (slotIndex) => {
+  const totalMinutes = PLANNER_START_MINUTES + slotIndex * PLANNER_SLOT_DURATION_MINUTES
+  const h = Math.floor(totalMinutes / 60) % 24
+  const m = totalMinutes % 60
+  return `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`
+}
+
+/**
+ * Filter out planner events older than maxAgeMs (default 12 hours).
+ * @param {Array<{ createdAt: string|number }>} events
+ * @param {number} [maxAgeMs=12*60*60*1000]
+ * @returns {Array} Filtered events
+ */
+export const filterExpiredPlannerEvents = (events, maxAgeMs = 12 * 60 * 60 * 1000) => {
+  if (!Array.isArray(events)) return []
+  const cutoff = Date.now() - maxAgeMs
+  return events.filter((e) => {
+    const created = typeof e.createdAt === 'number' ? e.createdAt : new Date(e.createdAt).getTime()
+    return created >= cutoff
+  })
+}

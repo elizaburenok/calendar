@@ -1,0 +1,20 @@
+/* Row: time text + horizontal line to the right (Figma design) */
+.time-label-row {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  min-width: 0;
+}
+
+.time-label {
+  color: inherit;
+  flex-shrink: 0;
+}
+
+/* Thin horizontal line extending to the right, same color as the label */
+.time-label__line {
+  flex: 1;
+  height: 0;
+  border-top: 1px solid currentColor;
+  margin-left: var(--spacing-2x, 8px);
+}

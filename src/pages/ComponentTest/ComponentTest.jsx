@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { Checkbox, DateText, DayOfWeekText, NoteLink, TaskText } from '../../components/atoms'
+import { Checkbox, DateText, DayOfWeekText, NoteLink, PlannerHeader, SlotRow, TaskText, TimeLabel } from '../../components/atoms'
 import { DayAgenda, DayHeader, TaskItem } from '../../components'
 import './ComponentTest.css'
 import '../../tokens/colors.css'
 import '../../tokens/typography.css'
+import calendarCheckIcon from '../../icons/Stroked 2px/Calendar Check.svg'
 
 const ComponentTest = () => {
   const [checked1, setChecked1] = useState(false)
@@ -197,6 +198,89 @@ const ComponentTest = () => {
               </div>
               <div className="component-test-code">
                 Interactive checkbox with state tracking
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="component-test-section">
+          <h2>PlannerHeader</h2>
+          <div className="component-test-grid">
+            <div className="component-test-item">
+              <div className="component-test-label">Default (icon + "На сегодня")</div>
+              <div className="component-test-preview" style={{ backgroundColor: '#191919', padding: '16px', borderRadius: '4px' }}>
+                <PlannerHeader iconSrc={calendarCheckIcon} />
+              </div>
+              <div className="component-test-code">
+                &lt;PlannerHeader iconSrc={'{calendarCheckIcon}'} /&gt;
+              </div>
+            </div>
+            <div className="component-test-item">
+              <div className="component-test-label">Custom title</div>
+              <div className="component-test-preview" style={{ backgroundColor: '#191919', padding: '16px', borderRadius: '4px' }}>
+                <PlannerHeader title="Active Plan Day" iconSrc={calendarCheckIcon} />
+              </div>
+              <div className="component-test-code">
+                &lt;PlannerHeader title="Active Plan Day" iconSrc={'{...}'} /&gt;
+              </div>
+            </div>
+            <div className="component-test-item">
+              <div className="component-test-label">Title only (no icon)</div>
+              <div className="component-test-preview" style={{ backgroundColor: '#191919', padding: '16px', borderRadius: '4px' }}>
+                <PlannerHeader title="На сегодня" />
+              </div>
+              <div className="component-test-code">
+                &lt;PlannerHeader title="На сегодня" /&gt;
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="component-test-section">
+          <h2>TimeLabel</h2>
+          <div className="component-test-grid">
+            <div className="component-test-item">
+              <div className="component-test-label">Default (inherits primary)</div>
+              <div className="component-test-preview">
+                <TimeLabel>20:00</TimeLabel>
+              </div>
+              <div className="component-test-code">
+                &lt;TimeLabel&gt;20:00&lt;/TimeLabel&gt;
+              </div>
+            </div>
+            <div className="component-test-item">
+              <div className="component-test-label">On dark (inherits white)</div>
+              <div className="component-test-preview" style={{ backgroundColor: '#191919', padding: '12px', borderRadius: '4px', color: '#fff' }}>
+                <TimeLabel>08:00</TimeLabel> <TimeLabel>21:30</TimeLabel>
+              </div>
+              <div className="component-test-code">
+                TimeLabel in a container with color: white
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="component-test-section">
+          <h2>SlotRow</h2>
+          <div className="component-test-grid">
+            <div className="component-test-item">
+              <div className="component-test-label">Default + current</div>
+              <div
+                className="component-test-preview"
+                style={{
+                  width: '320px',
+                  border: '1px solid var(--primitive-neutral-1)',
+                  borderRadius: '8px',
+                  overflow: 'hidden',
+                  ['--day-planner-slot-height']: '45px',
+                }}
+              >
+                <SlotRow slotIndex={0} label="20:00" onClick={() => {}} />
+                <SlotRow slotIndex={1} label="20:30" isCurrent onClick={() => {}} />
+                <SlotRow slotIndex={2} label="21:00" onClick={() => {}} />
+              </div>
+              <div className="component-test-code">
+                SlotRow with label, isCurrent on middle row
               </div>
             </div>
           </div>

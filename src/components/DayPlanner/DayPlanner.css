@@ -1,0 +1,226 @@
+/* DayPlanner: 8pm–12am time planner with slots and events */
+
+.day-planner {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-5x);
+  min-height: 0;
+}
+
+/* Same background as .calendar-page__inbox-notes so header matches Inbox design */
+.day-planner__header-wrap {
+  flex-shrink: 0;
+  display: flex;
+  padding: var(--spacing-5x);
+  background-color: #1C1C1C;
+  border-radius: 8px;
+  border: 1px solid #242424;
+  box-shadow: 0 1px 13px 0 rgba(208, 208, 208, 0.03) inset;
+}
+
+.day-planner__header-wrap .planner-header {
+  margin-bottom: 0;
+}
+
+.day-planner__hint {
+  margin: 0 0 var(--spacing-2x) 0;
+  color: var(--primitive-secondary, #676767);
+}
+
+.day-planner__body {
+  display: flex;
+  gap: var(--spacing-4x);
+  min-height: 0;
+  flex: 1 1 auto;
+}
+
+/* Left: scrollable slots + constructor */
+.day-planner__slots-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2x);
+  flex-shrink: 0;
+}
+
+/* Column of slot rows (Figma 15-224): vertical list, dark background, light labels */
+.day-planner__slot-list {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  overflow-y: auto;
+  overflow-x: hidden;
+  min-height: 0;
+  width: 100%;
+  background-color: var(--bg-inverse, #191919);
+  border: 1px solid var(--primitive-neutral-1-on-inverse, #474747);
+  border-radius: var(--rounding-2x);
+  color: var(--primitive-secondary-on-inverse, #aeaeae);
+}
+
+.day-planner__slot-list .slot-row {
+  background: transparent;
+  border-bottom-color: var(--primitive-neutral-1-on-inverse, #474747);
+  color: inherit;
+}
+
+.day-planner__slot-list .slot-row:hover {
+  background: var(--primitive-neutral-1-on-inverse, #474747);
+}
+
+.day-planner__slot-list .slot-row--current {
+  background: var(--primitive-brand, #835de1);
+  color: var(--primitive-primary-on-inverse, #fff);
+}
+
+.day-planner__slot-list .slot-row--current:hover {
+  background: var(--primitive-brand-on-inverse, #9b7ef1);
+}
+
+/* Event constructor (inline form) */
+.day-planner__event-constructor {
+  padding: var(--spacing-3x);
+  background: var(--primitive-neutral-1, #e1e1e1);
+  border-radius: var(--rounding-2x);
+  border: 1px solid var(--primitive-neutral-2, #d4d4d4);
+}
+
+.day-planner__constructor-input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: var(--spacing-2x) var(--spacing-3x);
+  margin-bottom: var(--spacing-2x);
+  border: 1px solid var(--primitive-neutral-2, #d4d4d4);
+  border-radius: var(--rounding-1x);
+  font: inherit;
+  font-size: 14px;
+}
+
+.day-planner__constructor-input:focus {
+  outline: none;
+  border-color: var(--primitive-brand, #835de1);
+}
+
+.day-planner__constructor-duration {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2x);
+  margin-bottom: var(--spacing-3x);
+}
+
+.day-planner__constructor-duration-label {
+  font-size: 12px;
+  color: var(--primitive-secondary, #676767);
+}
+
+.day-planner__constructor-select {
+  padding: var(--spacing-1x) var(--spacing-2x);
+  border: 1px solid var(--primitive-neutral-2, #d4d4d4);
+  border-radius: var(--rounding-1x);
+  font: inherit;
+  font-size: 14px;
+}
+
+.day-planner__constructor-actions {
+  display: flex;
+  gap: var(--spacing-2x);
+  margin-bottom: var(--spacing-2x);
+}
+
+.day-planner__constructor-btn {
+  padding: var(--spacing-2x) var(--spacing-3x);
+  border: 1px solid var(--primitive-neutral-2, #d4d4d4);
+  border-radius: var(--rounding-1x);
+  background: var(--primitive-default, #fff);
+  font: inherit;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.day-planner__constructor-btn--primary {
+  background: var(--primitive-brand, #835de1);
+  color: var(--primitive-primary-on-inverse, #fff);
+  border-color: var(--primitive-brand, #835de1);
+}
+
+.day-planner__constructor-slot-hint {
+  margin: 0;
+  font-size: 12px;
+  color: var(--primitive-secondary, #676767);
+}
+
+/* Right: events lane (absolute-positioned blocks) */
+.day-planner__events-lane {
+  position: relative;
+  flex: 1 1 auto;
+  min-width: 0;
+  border: 1px solid var(--primitive-neutral-1, #e1e1e1);
+  border-radius: var(--rounding-2x);
+  background: var(--primitive-default, #fff);
+}
+
+.day-planner__event-block {
+  position: absolute;
+  left: var(--spacing-2x);
+  right: var(--spacing-2x);
+  box-sizing: border-box;
+  padding: var(--spacing-2x) var(--spacing-3x);
+  background: var(--primitive-brand, #835de1);
+  color: var(--primitive-primary-on-inverse, #fff);
+  border-radius: var(--rounding-1x);
+  overflow: hidden;
+  cursor: grab;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 0;
+}
+
+.day-planner__event-block:active {
+  cursor: grabbing;
+}
+
+/* Smooth capture: no transition during drag so movement tracks pointer 1:1 */
+.day-planner__event-block--moving {
+  cursor: grabbing;
+  opacity: 0.95;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  will-change: transform;
+  user-select: none;
+}
+
+/* Snap-to-grid animation on release: only transform is transitioned */
+.day-planner__event-block--settling {
+  transition: transform 0.2s ease-out;
+}
+
+.day-planner__event-block:focus {
+  outline: 2px solid var(--primitive-primary, #191919);
+  outline-offset: 2px;
+}
+
+.day-planner__event-block-title {
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.day-planner__event-block-time {
+  font-size: 12px;
+  opacity: 0.9;
+}
+
+.day-planner__event-block-resize-handle {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 8px;
+  cursor: ns-resize;
+  flex-shrink: 0;
+}
+
+.day-planner__event-block-resize-handle:hover {
+  background: rgba(0, 0, 0, 0.1);
+}
