@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useCallback } from 'react'
+import { useLocalStorage } from '../hooks'
 
 const CalendarContext = createContext(null)
 
@@ -13,9 +14,9 @@ export const useCalendar = () => {
 /** @typedef {{ id: string, title: string, startTime: string, endTime: string, color?: string, isSelected?: boolean }} PlannerEvent */
 
 export const CalendarProvider = ({ children }) => {
-  const [tasks, setTasks] = useState([])
-  const [activities, setActivities] = useState([])
-  const [plannerEvents, setPlannerEvents] = useState([])
+  const [tasks, setTasks] = useLocalStorage('calendar-tasks', [])
+  const [activities, setActivities] = useLocalStorage('calendar-activities', [])
+  const [plannerEvents, setPlannerEvents] = useLocalStorage('calendar-planner-events', [])
   const [selectedEventId, setSelectedEventId] = useState(null)
 
   const addTask = useCallback((task) => {
