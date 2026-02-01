@@ -7,8 +7,8 @@
   font-weight: 400;
   line-height: 15px; /* 125% */
   letter-spacing: 1px;
-  /* Color: Primitive/Neutral 2 On Inverse */
-  color: var(--primitive-neutral-2-on-inverse, #525252);
+  /* Color: Primitive/Secondary On Inverse */
+  color: var(--primitive-secondary-on-inverse, #aeaeae);
   word-wrap: break-word;
   overflow-wrap: break-word;
   white-space: normal;

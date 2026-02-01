@@ -1,5 +1,124 @@
-/* Day planner: blank wrapper */
+/* DayPlanner Widget - Dark theme matching Figma design */
 
 .day-planner {
+  display: flex;
+  flex-direction: column;
   min-height: 0;
+  color: var(--primitive-primary-on-inverse, #fff);
+}
+
+/* Header: calendar icon + "На сегодня" */
+.day-planner__header {
+  padding: 20px 20px 10px 20px; /* top 20px, bottom 10px from Figma */
+}
+
+.day-planner .planner-header {
+  justify-content: flex-start;
+}
+
+.day-planner__header .planner-header__icon {
+  width: 18px;
+  height: 18px;
+}
+
+.day-planner__header .planner-header__title {
+  color: var(--primitive-primary-on-inverse, #fff);
+}
+
+/* Scroll container for the timeline */
+.day-planner__scroll-container {
+  flex: 1;
+  min-height: 0;
+  max-height: 240px; /* Show ~4 time slots, rest is scrollable */
+  overflow-y: auto;
+  overflow-x: hidden;
+  /* Hide scrollbar for cleaner look but keep functionality */
+  scrollbar-width: thin;
+  scrollbar-color: var(--primitive-neutral-4-on-inverse, #777) transparent;
+}
+
+.day-planner__scroll-container::-webkit-scrollbar {
+  width: 4px;
+}
+
+.day-planner__scroll-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.day-planner__scroll-container::-webkit-scrollbar-thumb {
+  background-color: var(--primitive-neutral-4-on-inverse, #777);
+  border-radius: 2px;
+}
+
+/* Content area with timeline and events */
+.day-planner__content {
+  position: relative;
+  padding: 0 20px 10px 20px; /* Figma: p 20px, pb 10px */
+}
+
+/* Timeline: vertical list of time rows */
+.day-planner__timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 45px; /* --4xls from Figma: 45px gap between slots */
+}
+
+/* Single time row: label + horizontal line */
+.day-planner__time-row {
+  display: flex;
+  align-items: center;
+  gap: 5px; /* --2xs from Figma */
+  height: 13px;
+  padding: 0;
+  margin: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+}
+
+.day-planner__time-row:hover .day-planner__time-line {
+  border-color: var(--primitive-neutral-4-on-inverse, #777);
+}
+
+/* Time label: 10px Regular, #aeaeae */
+.day-planner__time-label {
+  flex-shrink: 0;
+  font-family: "TT Norms Tochka Extended", sans-serif;
+  font-size: 10px;
+  font-weight: 400;
+  line-height: 13px;
+  letter-spacing: 0.1px;
+  color: var(--primitive-secondary-on-inverse, #aeaeae);
+}
+
+.day-planner__time-row--current .day-planner__time-label {
+  color: var(--primitive-brand-on-inverse, #9b7ef1);
+  font-weight: 500;
+}
+
+/* Horizontal line extending to the right */
+.day-planner__time-line {
+  flex: 1;
+  height: 0;
+  border-top: 1px solid var(--primitive-neutral-1-on-inverse, #474747);
+}
+
+.day-planner__time-row--current .day-planner__time-line {
+  border-color: var(--primitive-brand-on-inverse, #9b7ef1);
+}
+
+/* Events layer: overlays the timeline */
+.day-planner__events {
+  position: absolute;
+  top: 0;
+  left: 20px; /* match content padding */
+  right: 20px;
+  bottom: 10px;
+  pointer-events: none; /* Allow clicks to pass through to timeline */
+}
+
+.day-planner__events > * {
+  pointer-events: auto; /* But event blocks are interactive */
 }

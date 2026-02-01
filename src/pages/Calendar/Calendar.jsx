@@ -1,14 +1,146 @@
-import React, { useMemo } from 'react'
+import React, { useMemo, useState, useRef, useEffect } from 'react'
 import './Calendar.css'
 import '../../tokens/spacings.css'
 import '../../tokens/typography.css'
+import '../../components/DayHeader.css'
+import '../../components/DayAgenda.css'
 import DayAgenda from '../../components/DayAgenda'
 import DayPlanner from '../../components/DayPlanner'
 import InboxNotes from '../../components/InboxNotes/InboxNotes'
+import TaskItem from '../../components/TaskItem'
+import { DayOfWeekText } from '../../components/atoms'
 import { getWeekStart, formatDate, getRussianDayName } from '../../utils/dateUtils'
 import postBoxIcon from '../../icons/Stroked 2px/Post Box.svg'
 
 const Calendar = () => {
+  // Goals state and handlers
+  const [goals, setGoals] = useState([])
+  const goalRefs = useRef([])
+  const [focusGoalIndex, setFocusGoalIndex] = useState(null)
+
+  // Helper: focus existing input or enter edit mode on TaskItem
+  const focusOrEnterEditGoal = (goalElement) => {
+    if (!goalElement) return
+
+    const existingInput = goalElement.querySelector('input[type="text"]')
+    if (existingInput) {
+      existingInput.focus()
+      return
+    }
+
+    const taskTextElement = goalElement.querySelector('.task-item__text')
+    if (taskTextElement) {
+      const clickEvent = new MouseEvent('click', {
+        bubbles: true,
+        cancelable: true
+      })
+      taskTextElement.dispatchEvent(clickEvent)
+
+      setTimeout(() => {
+        const newInput = goalElement.querySelector('input[type="text"]')
+        if (newInput) {
+          newInput.focus()
+        }
+      }, 0)
+    }
+  }
+
+  // Manage focus for goals
+  useEffect(() => {
+    if (goals.length === 0) return
+
+    if (focusGoalIndex !== null) {
+      const targetIndex = Math.max(0, Math.min(focusGoalIndex, goals.length - 1))
+      setTimeout(() => {
+        const goalElement = goalRefs.current[targetIndex]
+        focusOrEnterEditGoal(goalElement)
+      }, 0)
+      
+      setFocusGoalIndex(null)
+    }
+  }, [goals, focusGoalIndex])
+
+  const handleGoalUpdate = (savedValue, goalIndex) => {
+    setGoals((prevGoals) => {
+      if (!savedValue.trim()) {
+        return prevGoals.filter((_, index) => index !== goalIndex)
+      }
+
+      const newGoals = [...prevGoals]
+      if (newGoals[goalIndex]) {
+        newGoals[goalIndex] = { ...newGoals[goalIndex], text: savedValue }
+      }
+      return newGoals
+    })
+  }
+
+  const handleGoalEnter = (savedValue, goalIndex) => {
+    setGoals((prevGoals) => {
+      const newGoals = [...prevGoals]
+      if (newGoals[goalIndex]) {
+        newGoals[goalIndex] = { ...newGoals[goalIndex], text: savedValue }
+      }
+      
+      const newGoal = {
+        id: `goal-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+        text: '',
+        checked: false
+      }
+
+      newGoals.splice(goalIndex + 1, 0, newGoal)
+      
+      return newGoals
+    })
+
+    setFocusGoalIndex(goalIndex + 1)
+  }
+
+  const handleGoalDelete = (goalIndex) => {
+    setGoals((prevGoals) => {
+      return prevGoals.filter((_, index) => index !== goalIndex)
+    })
+
+    setFocusGoalIndex(Math.max(goalIndex - 1, 0))
+  }
+
+  const handleGoalToggle = (goalId, newChecked) => {
+    setGoals((prevGoals) => 
+      prevGoals.map(goal => 
+        goal.id === goalId ? { ...goal, checked: newChecked } : goal
+      )
+    )
+  }
+
+  const handleGoalsContainerClick = (e) => {
+    if (
+      e.target.closest('.day-header') ||
+      e.target.closest('.day-agenda__task-item') ||
+      e.target.closest('input') ||
+      e.target.closest('button')
+    ) {
+      return
+    }
+
+    setGoals((prevGoals) => {
+      const lastGoal = prevGoals[prevGoals.length - 1]
+      
+      if (lastGoal && !lastGoal.text) {
+        setTimeout(() => setFocusGoalIndex(prevGoals.length - 1), 0)
+        return prevGoals
+      }
+      
+      const newGoal = {
+        id: `goal-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+        text: '',
+        checked: false
+      }
+      
+      setTimeout(() => setFocusGoalIndex(prevGoals.length), 0)
+      
+      return [...prevGoals, newGoal]
+    })
+  }
+
   // Generate 6 days starting from Monday of current week
   const days = useMemo(() => {
     const weekStart = getWeekStart(new Date())
@@ -76,6 +208,37 @@ const Calendar = () => {
                   tasks={day.tasks}
                 />
               ))}
+              {/* Goals column on third row */}
+              <div 
+                className="calendar-page__day calendar-page__goals day-agenda"
+                onClick={handleGoalsContainerClick}
+              >
+                <div className="day-header">
+                  <div className="day-header__text-wrapper">
+                    <DayOfWeekText>Цели</DayOfWeekText>
+                  </div>
+                </div>
+                <div className="day-agenda__tasks-list">
+                  {goals.map((goal, index) => (
+                    <div 
+                      key={goal.id}
+                      ref={(el) => { goalRefs.current[index] = el }}
+                      className="day-agenda__task-item"
+                    >
+                      <TaskItem
+                        id={goal.id}
+                        text={goal.text}
+                        checked={goal.checked || false}
+                        onToggle={(newChecked) => handleGoalToggle(goal.id, newChecked)}
+                        onSave={(savedValue) => handleGoalUpdate(savedValue, index)}
+                        onEnter={(savedValue) => handleGoalEnter(savedValue, index)}
+                        onDelete={() => handleGoalDelete(index)}
+                        autoFocus={false}
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
         </div>
