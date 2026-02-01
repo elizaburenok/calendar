@@ -165,3 +165,76 @@ export const filterExpiredPlannerEvents = (events, maxAgeMs = 12 * 60 * 60 * 100
     return created >= cutoff
   })
 }
+
+/* ----- Day planner widget (08:00–22:00, visible 4-hour window) ----- */
+
+/** Widget day range: 08:00 to 22:00 (14 hours), in minutes from midnight */
+export const WIDGET_START_MINUTES = 8 * 60   // 08:00
+export const WIDGET_END_MINUTES = 22 * 60     // 22:00
+export const WIDGET_TOTAL_MINUTES = WIDGET_END_MINUTES - WIDGET_START_MINUTES
+
+/** Snap step for events (15 or 30 min); used for move/resize/create */
+export const WIDGET_SNAP_MINUTES = 30
+
+/** Visible window duration in minutes (4 hours) */
+export const WIDGET_VISIBLE_WINDOW_MINUTES = 4 * 60
+
+/**
+ * Get minutes from midnight for a given date (local time).
+ * @param {Date} date
+ * @returns {number}
+ */
+export const getMinutesFromMidnight = (date) => {
+  const d = date instanceof Date ? date : new Date(date)
+  return d.getHours() * 60 + d.getMinutes()
+}
+
+/**
+ * Snap minutes-from-midnight to the widget grid (WIDGET_SNAP_MINUTES).
+ * @param {number} minutes
+ * @returns {number}
+ */
+export const snapToWidgetGrid = (minutes) => {
+  const step = WIDGET_SNAP_MINUTES
+  const snapped = Math.round(minutes / step) * step
+  return Math.max(WIDGET_START_MINUTES, Math.min(WIDGET_END_MINUTES, snapped))
+}
+
+/**
+ * Get the visible time window for the widget: nearest 4 hours from current time.
+ * Start is rounded down to the hour; end = start + 4h, clamped to 22:00.
+ * @param {Date} [now=new Date()]
+ * @returns {{ startMinutes: number, endMinutes: number }}
+ */
+export const getWidgetVisibleWindow = (now = new Date()) => {
+  const currentMinutes = getMinutesFromMidnight(now)
+  const start = Math.floor(currentMinutes / 60) * 60
+  let startMinutes = Math.max(WIDGET_START_MINUTES, start)
+  let endMinutes = Math.min(WIDGET_END_MINUTES, startMinutes + WIDGET_VISIBLE_WINDOW_MINUTES)
+  if (endMinutes - startMinutes < WIDGET_VISIBLE_WINDOW_MINUTES && startMinutes > WIDGET_START_MINUTES) {
+    startMinutes = Math.max(WIDGET_START_MINUTES, endMinutes - WIDGET_VISIBLE_WINDOW_MINUTES)
+  }
+  return { startMinutes, endMinutes }
+}
+
+/**
+ * Format time for display (ru-RU, HH:mm).
+ * @param {Date|string} date
+ * @returns {string}
+ */
+export const formatTimeRu = (date) => {
+  const d = date instanceof Date ? date : new Date(date)
+  return d.toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit', hour12: false })
+}
+
+/**
+ * Create a Date for today at the given minutes-from-midnight (local).
+ * @param {number} minutesFromMidnight
+ * @param {Date} [today=new Date()]
+ * @returns {Date}
+ */
+export const todayAtMinutes = (minutesFromMidnight, today = new Date()) => {
+  const d = new Date(today.getFullYear(), today.getMonth(), today.getDate())
+  d.setHours(Math.floor(minutesFromMidnight / 60), minutesFromMidnight % 60, 0, 0)
+  return d
+}

@@ -327,6 +327,28 @@
   line-height: 13px; /* 130% */
 }
 
+/* TT Norms 400/XXS for widget time labels - secondary on inverse */
+.text-ttn-400-xxs-secondary-inverse {
+  color: var(--primitive-secondary-on-inverse, #aeaeae);
+  font-family: "TT Norms Tochka Extended", sans-serif;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 13px; /* 130% */
+  letter-spacing: 0.1px;
+}
+
+/* TT Norms 500/XS for widget event text - primary on inverse */
+.text-ttn-500-xs-inverse {
+  color: var(--primitive-primary-on-inverse, #ffffff);
+  font-family: "TT Norms Tochka Extended", sans-serif;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 15px; /* 125% */
+  letter-spacing: 0.12px;
+}
+
 /* TT Norms 500 (Medium) - Secondary Color */
 .text-ttn-500-7xl-secondary {
   color: var(--primitive-secondary, #676767);

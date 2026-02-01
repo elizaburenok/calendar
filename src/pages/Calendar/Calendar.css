@@ -22,16 +22,15 @@
   min-height: 0; /* Allow shrinking */
 }
 
-/* Active Plan Day block */
+/* Active Plan Day block - Dark theme matching Figma */
 .calendar-page__active-plan-day {
-  /* flex: 1; Removed to prevent growing when inbox notes added */
   flex: 0 0 auto;
-  min-height: 200px; /* Restore min-height */
-  padding: var(--spacing-5x);
-  background: white;
-  border: 1px solid #e5e5e5;
-  border-radius: 8px;
-  /* overflow: hidden; Not strictly necessary if not flex growing */
+  min-height: 200px;
+  background: #1c1c1c;
+  border: 1px solid #242424;
+  border-radius: 10px; /* --xs from Figma */
+  box-shadow: inset 0px 1px 13px 0px rgba(208, 208, 208, 0.03);
+  overflow: hidden;
 }
 
 .calendar-page__active-plan-day h2 {
