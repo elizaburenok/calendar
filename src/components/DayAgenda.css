@@ -4,6 +4,10 @@
   align-items: flex-start;
   gap: 0;
   width: 100%;
+  /* Prevent content from overflowing */
+  min-width: 0;
+  max-width: 100%;
+  overflow: hidden;
 }
 
 .day-agenda__header {
@@ -15,11 +19,15 @@
   flex-direction: column;
   gap: var(--spacing-1x, 4px);
   width: 100%;
+  max-width: 100%;
+  min-width: 0;
   margin-top: var(--spacing-1x, 4px);
 }
 
 .day-agenda__note-wrapper {
   width: 100%;
+  min-width: 0;
+  overflow: hidden;
 }
 
 .day-agenda__tasks-list {
@@ -27,9 +35,13 @@
   flex-direction: column;
   gap: var(--spacing-3x, 12px); /* spacings/s */
   width: 100%;
+  max-width: 100%;
+  min-width: 0;
   margin-top: var(--spacing-1x, 4px); /* spacings/xs - spacing between note link and task list */
 }
 
 .day-agenda__task-item {
   width: 100%;
+  min-width: 0;
+  overflow: hidden;
 }

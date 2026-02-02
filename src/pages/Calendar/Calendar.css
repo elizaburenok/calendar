@@ -99,4 +99,7 @@
   min-height: 200px;
   padding: var(--spacing-5x);
   border-radius: 8px;
+  /* Prevent content from stretching grid columns */
+  min-width: 0;
+  overflow: hidden;
 }
