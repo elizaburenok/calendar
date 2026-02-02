@@ -45,3 +45,31 @@
   min-width: 0;
   overflow: hidden;
 }
+
+/* NoteLink overrides for DayAgenda - show full text without truncation */
+.day-agenda .note-link {
+  height: auto;
+  min-height: 40px;
+  align-items: flex-start;
+  padding-bottom: 12px;
+}
+
+.day-agenda .note-link__text {
+  white-space: normal;
+  overflow: visible;
+  text-overflow: clip;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+.day-agenda .note-link__input {
+  white-space: normal;
+  overflow: visible;
+  text-overflow: clip;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+.day-agenda .note-link__textarea {
+  min-height: 20px;
+}
