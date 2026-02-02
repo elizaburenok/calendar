@@ -1,0 +1,1 @@
+import{c as r,j as e,R as a,C as t,a as n}from"./index-6OODho3n.js";function o(){return e.jsx(t,{children:e.jsx(n,{})})}r.createRoot(document.getElementById("root")).render(e.jsx(a.StrictMode,{children:e.jsx(o,{})}));

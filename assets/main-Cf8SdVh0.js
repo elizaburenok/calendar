@@ -1,0 +1,1 @@
+import{j as e,C as a,a as r,c as s,R as n}from"./index-6OODho3n.js";function t(){return e.jsx(a,{children:e.jsx("div",{className:"app",children:e.jsx("main",{className:"app-main",children:e.jsx(r,{})})})})}s.createRoot(document.getElementById("root")).render(e.jsx(n.StrictMode,{children:e.jsx(t,{})}));
