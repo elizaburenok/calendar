@@ -20,6 +20,9 @@ export const CalendarProvider = ({ children }) => {
   const [selectedEventId, setSelectedEventId] = useState(null)
 
   const addTask = useCallback((task) => {
+    // #region agent log
+    fetch('http://127.0.0.1:7242/ingest/0a1f3231-f882-46b3-abf6-83c831abb2fc',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'CalendarContext.jsx:addTask',message:'addTask called',data:{task},timestamp:Date.now(),sessionId:'debug-session',hypothesisId:'H6'})}).catch(()=>{});
+    // #endregion
     setTasks((prev) => [...prev, { ...task, id: Date.now().toString() }])
   }, [])
 
@@ -34,6 +37,9 @@ export const CalendarProvider = ({ children }) => {
   }, [])
 
   const addActivity = useCallback((activity) => {
+    // #region agent log
+    fetch('http://127.0.0.1:7242/ingest/0a1f3231-f882-46b3-abf6-83c831abb2fc',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'CalendarContext.jsx:addActivity',message:'addActivity called',data:{activity},timestamp:Date.now(),sessionId:'debug-session',hypothesisId:'H6'})}).catch(()=>{});
+    // #endregion
     setActivities((prev) => [
       ...prev,
       { ...activity, id: Date.now().toString() },
@@ -53,6 +59,9 @@ export const CalendarProvider = ({ children }) => {
   }, [])
 
   const addPlannerEvent = useCallback((event) => {
+    // #region agent log
+    fetch('http://127.0.0.1:7242/ingest/0a1f3231-f882-46b3-abf6-83c831abb2fc',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'CalendarContext.jsx:addPlannerEvent',message:'addPlannerEvent called',data:{eventTitle:event.title},timestamp:Date.now(),sessionId:'debug-session',hypothesisId:'H6'})}).catch(()=>{});
+    // #endregion
     const id = event.id || crypto.randomUUID?.() || Date.now().toString()
     const withDefaults = {
       color: 'purple',
