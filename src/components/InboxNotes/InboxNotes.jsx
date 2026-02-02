@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import NoteLink from '../atoms/NoteLink'
+import { useLocalStorage } from '../../hooks'
 import './InboxNotes.css'
 
 const BulletIcon = (
@@ -18,10 +19,13 @@ const BulletIcon = (
 )
 
 const InboxNotes = () => {
-  const [notes, setNotes] = useState([])
+  const [notes, setNotes] = useLocalStorage('inbox-notes', [])
   const [inputKey, setInputKey] = useState(0)
 
   const addNote = (text) => {
+    // #region agent log
+    fetch('http://127.0.0.1:7242/ingest/0a1f3231-f882-46b3-abf6-83c831abb2fc',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'InboxNotes.jsx:addNote',message:'addNote called',data:{text,hasText:!!text,trimmed:text?.trim()},timestamp:Date.now(),sessionId:'debug-session',hypothesisId:'H7'})}).catch(()=>{});
+    // #endregion
     if (!text || !text.trim()) return
     const newNote = {
       id: Date.now().toString(),

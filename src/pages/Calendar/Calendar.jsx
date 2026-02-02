@@ -9,12 +9,13 @@ import DayPlanner from '../../components/DayPlanner'
 import InboxNotes from '../../components/InboxNotes/InboxNotes'
 import TaskItem from '../../components/TaskItem'
 import { DayOfWeekText } from '../../components/atoms'
+import { useLocalStorage } from '../../hooks'
 import { getWeekStart, formatDate, getRussianDayName } from '../../utils/dateUtils'
 import postBoxIcon from '../../icons/Stroked 2px/Post Box.svg'
 
 const Calendar = () => {
   // Goals state and handlers
-  const [goals, setGoals] = useState([])
+  const [goals, setGoals] = useLocalStorage('calendar-goals', [])
   const goalRefs = useRef([])
   const [focusGoalIndex, setFocusGoalIndex] = useState(null)
 
@@ -61,6 +62,9 @@ const Calendar = () => {
   }, [goals, focusGoalIndex])
 
   const handleGoalUpdate = (savedValue, goalIndex) => {
+    // #region agent log
+    fetch('http://127.0.0.1:7242/ingest/0a1f3231-f882-46b3-abf6-83c831abb2fc',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'Calendar.jsx:handleGoalUpdate',message:'goal update called',data:{savedValue,goalIndex},timestamp:Date.now(),sessionId:'debug-session',hypothesisId:'H7'})}).catch(()=>{});
+    // #endregion
     setGoals((prevGoals) => {
       if (!savedValue.trim()) {
         return prevGoals.filter((_, index) => index !== goalIndex)
@@ -112,6 +116,9 @@ const Calendar = () => {
   }
 
   const handleGoalsContainerClick = (e) => {
+    // #region agent log
+    fetch('http://127.0.0.1:7242/ingest/0a1f3231-f882-46b3-abf6-83c831abb2fc',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'Calendar.jsx:handleGoalsContainerClick',message:'goals container clicked',data:{targetClass:e.target.className},timestamp:Date.now(),sessionId:'debug-session',hypothesisId:'H7'})}).catch(()=>{});
+    // #endregion
     if (
       e.target.closest('.day-header') ||
       e.target.closest('.day-agenda__task-item') ||

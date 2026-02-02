@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import DayHeader from './DayHeader'
 import TaskItem from './TaskItem'
 import { NoteLink } from './atoms'
+import { useLocalStorage } from '../hooks'
 import './DayAgenda.css'
 
 /**
@@ -28,7 +29,9 @@ const DayAgenda = ({
   ...rest
 }) => {
   // Local notes state for this day (uses NoteLink keyboard logic: Enter to add, Delete to remove)
-  const [notes, setNotes] = useState([''])
+  // Use localStorage with a unique key per day based on the date prop
+  const dateKey = typeof date === 'string' ? date : (date instanceof Date ? date.toISOString().split('T')[0] : 'default')
+  const [notes, setNotes] = useLocalStorage(`day-agenda-notes-${dateKey}`, [''])
   const noteRefs = useRef([])
   const [focusNoteIndex, setFocusNoteIndex] = useState(null)
 
@@ -174,10 +177,7 @@ const DayAgenda = ({
     }
   }
 
-  const [localTasks, setLocalTasks] = useState(() => {
-    // Start with provided tasks
-    return tasks.length > 0 ? [...tasks] : []
-  })
+  const [localTasks, setLocalTasks] = useLocalStorage(`day-agenda-tasks-${dateKey}`, tasks.length > 0 ? [...tasks] : [])
   const taskRefs = useRef([])
   const [focusTaskIndex, setFocusTaskIndex] = useState(null)
 

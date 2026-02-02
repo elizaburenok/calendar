@@ -149,6 +149,9 @@ const NoteLink = ({
       e.preventDefault()
       e.stopPropagation()
       const savedValue = value.trim()
+      // #region agent log
+      fetch('http://127.0.0.1:7242/ingest/0a1f3231-f882-46b3-abf6-83c831abb2fc',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'NoteLink.jsx:handleInputKeyDown:Enter',message:'Enter pressed in NoteLink',data:{savedValue,hasOnEnter:!!onEnter},timestamp:Date.now(),sessionId:'debug-session',hypothesisId:'H8'})}).catch(()=>{});
+      // #endregion
       // Update the value state with the trimmed value
       setValue(savedValue)
       // Keep hasLocalChangesRef as true so useEffect doesn't reset it
@@ -158,7 +161,13 @@ const NoteLink = ({
       // Call onEnter callback with the saved value (always call, even if empty)
       // Parent can decide whether to create a new note based on the value
       if (onEnter) {
+        // #region agent log
+        fetch('http://127.0.0.1:7242/ingest/0a1f3231-f882-46b3-abf6-83c831abb2fc',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'NoteLink.jsx:beforeOnEnter',message:'About to call onEnter',data:{savedValue,onEnterType:typeof onEnter,onEnterName:onEnter.name||'anonymous'},timestamp:Date.now(),sessionId:'debug-session',hypothesisId:'H9'})}).catch(()=>{});
+        // #endregion
         onEnter(savedValue)
+        // #region agent log
+        fetch('http://127.0.0.1:7242/ingest/0a1f3231-f882-46b3-abf6-83c831abb2fc',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'NoteLink.jsx:afterOnEnter',message:'onEnter completed',data:{savedValue},timestamp:Date.now(),sessionId:'debug-session',hypothesisId:'H9'})}).catch(()=>{});
+        // #endregion
       }
     } else if (e.key === 'Escape') {
       setIsEditing(false)
