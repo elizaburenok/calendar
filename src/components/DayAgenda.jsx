@@ -11,7 +11,8 @@ import './DayAgenda.css'
  * A complete day agenda component that displays a day header (date, day of week, note link)
  * and a list of tasks for that day. This is the full component from the Figma design.
  * 
- * @param {string|Date} date - The date to display (can be a Date object or formatted string)
+ * @param {string|Date} date - The date key for localStorage (YYYY-MM-DD format recommended)
+ * @param {string} displayDate - Optional formatted date for display (e.g., "2 февраля"). Falls back to date if not provided.
  * @param {string} dayOfWeek - The day of week text to display (e.g., "Понедельник")
  * @param {Array} tasks - Array of task objects with shape: { id, text, checked, disabled?, onToggle? }
  * @param {function} onNoteClick - Callback function called when NoteLink is clicked
@@ -21,6 +22,7 @@ import './DayAgenda.css'
  */
 const DayAgenda = ({
   date,
+  displayDate,
   dayOfWeek,
   tasks = [],
   onNoteClick,
@@ -349,7 +351,7 @@ const DayAgenda = ({
       {...rest}
     >
       <DayHeader
-        date={date}
+        date={displayDate || date}
         dayOfWeek={dayOfWeek}
         onNoteClick={handleHeaderNoteClick}
         noteValue={notes.length > 0 ? notes[0] : ''}

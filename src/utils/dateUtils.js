@@ -101,6 +101,34 @@ export const getRussianDayName = (date) => {
   return dayNames[date.getDay()]
 }
 
+/**
+ * Format date in Russian format: "2 февраля", "10 марта"
+ * Uses genitive case for month names
+ * @param {Date} date - Date to format
+ * @returns {string} Formatted date string (e.g., "2 февраля")
+ */
+export const formatDateRussian = (date) => {
+  const d = new Date(date)
+  const day = d.getDate()
+  
+  const monthNamesGenitive = [
+    'января',
+    'февраля',
+    'марта',
+    'апреля',
+    'мая',
+    'июня',
+    'июля',
+    'августа',
+    'сентября',
+    'октября',
+    'ноября',
+    'декабря'
+  ]
+  
+  return `${day} ${monthNamesGenitive[d.getMonth()]}`
+}
+
 /* ----- Day planner (8pm–12am local time) ----- */
 
 /** Planner day range: 20:00 to 24:00 (midnight), 30-min slots */

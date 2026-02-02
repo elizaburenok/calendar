@@ -10,7 +10,7 @@ import InboxNotes from '../../components/InboxNotes/InboxNotes'
 import TaskItem from '../../components/TaskItem'
 import { DayOfWeekText } from '../../components/atoms'
 import { useLocalStorage } from '../../hooks'
-import { getWeekStart, formatDate, getRussianDayName } from '../../utils/dateUtils'
+import { getWeekStart, formatDate, getRussianDayName, formatDateRussian } from '../../utils/dateUtils'
 import postBoxIcon from '../../icons/Stroked 2px/Post Box.svg'
 
 const Calendar = () => {
@@ -158,18 +158,13 @@ const Calendar = () => {
       const date = new Date(weekStart)
       date.setDate(weekStart.getDate() + i)
       
-      // Add some test tasks for the first day to verify TaskItem rendering
-      const testTasks = i === 0 ? [
-        { id: `task-${i}-1`, text: 'Тестовая задача 1', checked: false },
-        { id: `task-${i}-2`, text: 'Тестовая задача 2', checked: true }
-      ] : []
-      
       daysArray.push({
         id: `day-${i}`,
         date: formatDate(date, 'YYYY-MM-DD'),
+        displayDate: formatDateRussian(date),
         dayOfWeek: getRussianDayName(date),
         dateObj: date,
-        tasks: testTasks
+        tasks: []
       })
     }
     
@@ -211,6 +206,7 @@ const Calendar = () => {
                   key={day.id}
                   className="calendar-page__day"
                   date={day.date}
+                  displayDate={day.displayDate}
                   dayOfWeek={day.dayOfWeek}
                   tasks={day.tasks}
                 />
