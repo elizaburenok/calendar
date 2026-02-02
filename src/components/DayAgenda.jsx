@@ -37,11 +37,11 @@ const DayAgenda = ({
   const noteRefs = useRef([])
   const [focusNoteIndex, setFocusNoteIndex] = useState(null)
 
-  // Helper: focus existing input or programmatically enter edit mode on NoteLink
+  // Helper: focus existing input/textarea or programmatically enter edit mode on NoteLink
   const focusOrEnterEdit = (noteElement) => {
     if (!noteElement) return
 
-    const existingInput = noteElement.querySelector('input')
+    const existingInput = noteElement.querySelector('input, textarea')
     if (existingInput) {
       existingInput.focus()
       return
@@ -55,9 +55,9 @@ const DayAgenda = ({
       })
       noteLinkElement.dispatchEvent(mouseDownEvent)
 
-      // After NoteLink enters edit mode, focus the newly created input
+      // After NoteLink enters edit mode, focus the newly created input/textarea
       setTimeout(() => {
-        const newInput = noteElement.querySelector('input')
+        const newInput = noteElement.querySelector('input, textarea')
         if (newInput) {
           newInput.focus()
         }
@@ -79,7 +79,7 @@ const DayAgenda = ({
         setTimeout(() => {
           const headerNoteLink = document.querySelector('.day-agenda__header .note-link')
           if (headerNoteLink) {
-            const input = headerNoteLink.querySelector('input')
+            const input = headerNoteLink.querySelector('input, textarea')
             if (input) {
               input.focus()
             } else {
@@ -90,7 +90,7 @@ const DayAgenda = ({
               })
               headerNoteLink.dispatchEvent(mouseDownEvent)
               setTimeout(() => {
-                const newInput = headerNoteLink.querySelector('input')
+                const newInput = headerNoteLink.querySelector('input, textarea')
                 if (newInput) {
                   newInput.focus()
                 }
@@ -121,7 +121,7 @@ const DayAgenda = ({
       setTimeout(() => {
         const headerNoteLink = document.querySelector('.day-agenda__header .note-link')
         if (headerNoteLink) {
-          const input = headerNoteLink.querySelector('input')
+          const input = headerNoteLink.querySelector('input, textarea')
           if (input) {
             input.focus()
           } else {
@@ -131,7 +131,7 @@ const DayAgenda = ({
             })
             headerNoteLink.dispatchEvent(mouseDownEvent)
             setTimeout(() => {
-              const newInput = headerNoteLink.querySelector('input')
+              const newInput = headerNoteLink.querySelector('input, textarea')
               if (newInput) {
                 newInput.focus()
               }
@@ -358,6 +358,7 @@ const DayAgenda = ({
         onNoteEnter={notes.length > 0 ? handleFirstNoteEnter : undefined}
         onNoteDelete={notes.length > 0 ? handleFirstNoteDelete : undefined}
         noteAutoFocus={false}
+        noteMultiline={true}
         className="day-agenda__header"
       />
 
@@ -376,6 +377,7 @@ const DayAgenda = ({
                   autoFocus={note === '' && actualIndex === notes.length - 1}
                   onEnter={(savedValue) => handleNoteEnter(savedValue, actualIndex)}
                   onDelete={() => handleNoteDelete(actualIndex)}
+                  multiline={true}
                 />
               </div>
             )

@@ -26,6 +26,7 @@ const DayHeader = ({
   onNoteEnter,
   onNoteDelete,
   noteAutoFocus = false,
+  noteMultiline = false,
   className = '',
   ...rest
 }) => {
@@ -49,6 +50,7 @@ const DayHeader = ({
           onEnter={onNoteEnter}
           onDelete={onNoteDelete}
           autoFocus={noteAutoFocus}
+          multiline={noteMultiline}
         />
       </div>
     </div>
